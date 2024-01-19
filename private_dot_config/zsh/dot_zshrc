@@ -6,7 +6,7 @@ alias ll="ls -lh"
 alias la="ls -lAh"
 
 alias sudo="sudo -v; sudo "
-alias rtxup='eval "$(rtx activate zsh)"'
+alias miseup='eval "$(mise activate zsh)"'
 
 # Completion
 source $ZDOTDIR/completion.zsh
