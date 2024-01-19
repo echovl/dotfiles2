@@ -1,0 +1,81 @@
+@import "./colors.css";
+
+* {
+  font-family:
+    Jetbrains Mono,
+    "Font Awesome 5 Free",
+    sans-serif;
+  font-size: 14px;
+  padding: 0px;
+  margin: 0px;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#tray,
+#workspaces,
+#window {
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: @base00;
+  font-weight: bolder;
+  color: @base0C;
+}
+
+window#waybar {
+  background-color: transparent;
+}
+
+#workspaces button.empty {
+  color: @base08;
+  font-weight: bolder;
+}
+
+#workspaces button label {
+  color: @base0C;
+  font-weight: bolder;
+  padding: 0 10px;
+}
+
+#workspaces button.focused label,
+#workspaces button.active label {
+  color: @base08;
+  font-weight: bolder;
+}
+
+#workspaces {
+  font-weight: bolder;
+  padding: 0 2px;
+}
+
+#pulseaudio {
+  background-color: @base0D;
+  color: @base00;
+}
+
+#backlight {
+  background-color: @base0A;
+  color: @base00;
+}
+
+#battery {
+  background-color: @base09;
+  color: @base00;
+}
+
+#window {
+  background-color: @base0C;
+  color: @base00;
+}
+
+#network {
+  background-color: @base0B;
+  color: @base00;
+}

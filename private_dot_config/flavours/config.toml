@@ -1,0 +1,78 @@
+# Configuration for flavours
+# https://github.com/Misterio77/flavours
+#
+# Example config and default values
+#
+# [[item]]
+# file = '~/.config/example' (file to inject to, supports tilde and env var expansion. required)
+# template = 'example' (template to use. required)
+# subtemplate = 'default' (subtemplate to use)
+# rewrite = false (should we rewrite the entire file?)
+# start = '# Start flavours' (if not rewriting, where to start replacing)
+# end = '# End flavours' (if not rewriting, where to stop replacing)
+# hook = '' (command to execute after injecting)
+#
+# Example for i3
+#
+[[item]]
+file = '~/.config/sway/config'
+template = 'sway'
+subtemplate = 'colors'
+hook = 'swaymsg reload'
+rewrite = false
+
+[[item]]
+file = '~/.config/alacritty.yml'
+template = 'alacritty'
+subtemplate = 'default-256'
+rewrite = false
+
+[[item]]
+file = '~/.config/kitty/kitty.conf'
+template = 'kitty'
+subtemplate = 'default-256'
+rewrite = false
+
+[[item]]
+file = '~/.Xresources'
+template = 'xresources'
+subtemplate = 'default-256'
+rewrite = false
+
+
+[[item]]
+file = '~/.config/polybar/colors.ini'
+template = 'polybar'
+rewrite = true
+hook = 'polybar-msg cmd restart &'
+
+[[item]]
+file = '~/.config/waybar/colors.css'
+template = 'waybar'
+rewrite = true
+hook = 'killall -SIGUSR2 waybar'
+
+# [[item]]
+# file = '~/.config/nvim/colors/flavours.lua'
+# template = 'nvim'
+# rewrite = true
+# hook = "reloadnvim"
+
+[[item]]
+file = '~/.config/rofi/colors.rasi'
+template = 'rofi'
+subtemplate = 'colors'
+rewrite = true
+
+# [[item]]
+# file = "~/.themes/FlatColor/colors3"
+# template = "gtk-flatcolor"
+# subtemplate = "gtk-3"
+# rewrite = true
+# hook = "systemctl restart --user xsettingsd"
+
+# [[item]]
+# file = "~/.themes/FlatColor/colors2"
+# template = "gtk-flatcolor"
+# subtemplate = "gtk-2"
+# rewrite = true
