@@ -22,29 +22,10 @@ hook = 'swaymsg reload'
 rewrite = false
 
 [[item]]
-file = '~/.config/alacritty.yml'
+file = '~/.config/alacritty.toml'
 template = 'alacritty'
 subtemplate = 'default-256'
 rewrite = false
-
-[[item]]
-file = '~/.config/kitty/kitty.conf'
-template = 'kitty'
-subtemplate = 'default-256'
-rewrite = false
-
-[[item]]
-file = '~/.Xresources'
-template = 'xresources'
-subtemplate = 'default-256'
-rewrite = false
-
-
-[[item]]
-file = '~/.config/polybar/colors.ini'
-template = 'polybar'
-rewrite = true
-hook = 'polybar-msg cmd restart &'
 
 [[item]]
 file = '~/.config/waybar/colors.css'
@@ -64,15 +45,15 @@ template = 'rofi'
 subtemplate = 'colors'
 rewrite = true
 
-# [[item]]
-# file = "~/.themes/FlatColor/colors3"
-# template = "gtk-flatcolor"
-# subtemplate = "gtk-3"
-# rewrite = true
-# hook = "systemctl restart --user xsettingsd"
+[[item]]
+file = "~/.themes/FlatColor/colors3"
+template = "gtk-flatcolor"
+subtemplate = "gtk-3"
+rewrite = true
+hook = "systemctl restart --user xsettingsd"
 
-# [[item]]
-# file = "~/.themes/FlatColor/colors2"
-# template = "gtk-flatcolor"
-# subtemplate = "gtk-2"
-# rewrite = true
+[[item]]
+file = "~/.themes/FlatColor/colors2"
+template = "gtk-flatcolor"
+subtemplate = "gtk-2"
+rewrite = true

@@ -33,7 +33,6 @@ export BUN_INSTALL="$HOME/.bun"
 export GDK_BACKEND="wayland,x11"
 export QT_QPA_PLATFORM="wayland;xcb"
 export XDG_CURRENT_DESKTOP="sway"
-export GTK_THEME="Adwaita-dark"
 
 # nvim as manpager
 export MANPAGER="nvim +Man!"

@@ -1,7 +1,7 @@
 @import "~/.config/rofi/colors.rasi"
 
 configuration {
-  font: "JetBrainsMono Nerd Font 13";
+  font: "JetBrainsMono Nerd Font 11";
 
   drun {
     display-name: "";
@@ -28,7 +28,7 @@ configuration {
 
 window {
   transparency: "real";
-  width: 650;
+  width: 550;
   border: 1px;
   border-color: @lightfg;
   border-radius: 10px;
