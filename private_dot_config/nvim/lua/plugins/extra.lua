@@ -3,11 +3,11 @@ return {
 		"Vimjas/vim-python-pep8-indent",
 		event = { "BufReadPost", "BufNewFile" },
 	},
-	-- {
-	-- 	"NvChad/nvim-colorizer.lua",
-	-- 	lazy = false,
-	-- 	opts = {},
-	-- },
+	{
+		"NvChad/nvim-colorizer.lua",
+		lazy = false,
+		opts = {},
+	},
 	{
 		"tpope/vim-sleuth",
 		lazy = false,

@@ -25,37 +25,33 @@
   padding: 4px 8px;
   margin: 2px;
   border-radius: 5px;
-  background: @base00;
+  background: transparent;
   font-weight: bolder;
-  color: @base07;
+  color: @base04;
 }
 
 window#waybar {
-  background-color: rgba(0, 0, 0, 0.5);
+  background: rgba(29, 32, 33, 0.5);
 }
 
 #workspaces button.empty {
   color: @base08;
-  background: @base00;
-  font-weight: bolder;
+  background: transparent;
 }
 
 #workspaces button label {
-  color: @base07;
-  font-weight: bolder;
-  background: @base00;
+  color: @base03;
+  background: transparent;
   padding: 0 10px;
 }
 
 #workspaces button.focused label,
 #workspaces button.active label {
   color: @base08;
-  background: @base00;
-  font-weight: bolder;
+  background: transparent;
 }
 
 #workspaces {
-  font-weight: bolder;
   padding: 0 2px;
 }
 

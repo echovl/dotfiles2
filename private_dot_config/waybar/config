@@ -6,8 +6,8 @@
     "margin-bottom": -5,
     "spacing": 0,
     "modules-left": [
-        "sway/workspaces",
-        "sway/window"
+        "hyprland/workspaces",
+        "hyprland/window"
     ],
     "modules-right": [
         "network",
@@ -97,7 +97,7 @@
     "network": {
         "interface": "wlp0s20f3",
         "format": "{ifname}",
-        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-wifi": "{signalStrength}% ",
         "format-ethernet": "{ipaddr}/{cidr} 󰊗",
         "format-disconnected": "", //An empty format will hide the module.
         "tooltip-format": "{ifname} via {gwaddr} 󰊗",

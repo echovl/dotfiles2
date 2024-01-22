@@ -28,6 +28,11 @@ subtemplate = 'default-256'
 rewrite = false
 
 [[item]]
+file = '~/.config/foot/foot.ini'
+template = 'foot'
+rewrite = false
+
+[[item]]
 file = '~/.config/waybar/colors.css'
 template = 'waybar'
 rewrite = true
