@@ -10,6 +10,7 @@
         "hyprland/window"
     ],
     "modules-right": [
+        "tray",
         "network",
         "pulseaudio",
         "backlight",
@@ -28,8 +29,8 @@
         "on-click": "activate"
     },
     "tray": {
-        // "icon-size": 21,
-        "spacing": 10
+        "icon-size": 21,
+        "spacing": 16
     },
     "clock": {
         "interval": 60,

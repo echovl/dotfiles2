@@ -45,6 +45,12 @@ hook = 'killall -SIGUSR2 waybar'
 # hook = "reloadnvim"
 
 [[item]]
+file = '~/.config/dunst/dunstrc'
+template = 'dunst'
+rewrite = false
+hook = 'killall -SIGUSR2 dunst'
+
+[[item]]
 file = '~/.config/rofi/colors.rasi'
 template = 'rofi'
 subtemplate = 'colors'
