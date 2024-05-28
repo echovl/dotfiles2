@@ -25,6 +25,7 @@ window {
 
     location:       center;
     width:          640;
+    height:         300;
     border-radius:  8;
     border: 1px;
     border-color: @lightbg;
@@ -34,6 +35,8 @@ inputbar {
     padding:    12px;
     spacing:    12px;
     children:   [ icon-search, entry ];
+    border: 0 0 1px 0;
+    border-color: @lightbg;
 }
 
 icon-search {

@@ -1,12 +1,3 @@
-local check_back_space = function()
-	local col = vim.fn.col(".") - 1
-	if col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
-		return true
-	else
-		return false
-	end
-end
-
 return {
 	{
 		"pmizio/typescript-tools.nvim",
@@ -78,6 +69,8 @@ return {
 					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, keymap_opts)
 					vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, keymap_opts)
 					vim.keymap.set("n", "<leader>rf", vim.lsp.buf.references, keymap_opts)
+					vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, keymap_opts)
+					vim.keymap.set("n", "<leader>bs", vim.lsp.buf.signature_help, keymap_opts)
 				end,
 			})
 
@@ -152,29 +145,6 @@ return {
 		end,
 	},
 	{
-		"nvimtools/none-ls.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		dependencies = { "mason.nvim" },
-		opts = function()
-			local nls = require("null-ls")
-			return {
-				sources = {
-					nls.builtins.formatting.gofmt,
-					nls.builtins.formatting.goimports,
-					nls.builtins.formatting.prettierd,
-					nls.builtins.formatting.black,
-					nls.builtins.formatting.isort,
-					-- nls.builtins.diagnostics.eslint_d,
-					nls.builtins.formatting.stylua,
-					nls.builtins.formatting.sql_formatter.with({
-						extra_args = { "-l", "postgresql" },
-					}),
-					-- nls.builtins.formatting.prismaFmt
-				},
-			}
-		end,
-	},
-	{
 		"hrsh7th/nvim-cmp",
 		version = false, -- last release is way too old
 		event = "InsertEnter",
@@ -184,11 +154,12 @@ return {
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"saadparwaiz1/cmp_luasnip",
+			"onsails/lspkind.nvim",
 		},
 		opts = function()
 			local cmp = require("cmp")
-			local defaults = require("cmp.config.default")()
 			local select_opts = { behavior = cmp.SelectBehavior.Select }
+			local lspkind = require("lspkind")
 
 			return {
 				completion = {
@@ -201,21 +172,9 @@ return {
 				},
 				preselect = cmp.PreselectMode.Item,
 				mapping = {
-					-- confirm selection
-					["<CR>"] = cmp.mapping.confirm({ select = false }),
 					["<C-y>"] = cmp.mapping.confirm({ select = false }),
-
-					-- navigate items on the list
-					["<Up>"] = cmp.mapping.select_prev_item(select_opts),
-					["<Down>"] = cmp.mapping.select_next_item(select_opts),
 					["<C-p>"] = cmp.mapping.select_prev_item(select_opts),
 					["<C-n>"] = cmp.mapping.select_next_item(select_opts),
-
-					-- scroll up and down in the completion documentation
-					["<C-f>"] = cmp.mapping.scroll_docs(5),
-					["<C-u>"] = cmp.mapping.scroll_docs(-5),
-
-					-- toggle completion
 					["<C-e>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.abort()
@@ -223,55 +182,24 @@ return {
 							cmp.complete()
 						end
 					end),
-
-					-- when menu is visible, navigate to next item
-					-- when line is empty, insert a tab character
-					-- else, activate completion
-					["<Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_next_item(select_opts)
-						elseif check_back_space() then
-							fallback()
-						else
-							cmp.complete()
-						end
-					end, { "i", "s" }),
-
-					-- when menu is visible, navigate to previous item on list
-					-- else, revert to default behavior
-					["<S-Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item(select_opts)
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
 				},
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp", max_item_count = 50 },
+					{ name = "luasnip" }, -- For luasnip users.
 					{ name = "nvim_lua" },
 					{ name = "path" },
-				}),
+				}, { { name = "buffer" } }),
 				formatting = {
-					fields = { "abbr", "menu", "kind" },
-					format = function(entry, item)
-						local short_name = {
-							nvim_lsp = "LSP",
-							nvim_lua = "nvim",
-						}
-
-						local menu_name = short_name[entry.source.name] or entry.source.name
-
-						item.menu = string.format("[%s]", menu_name)
-						return item
-					end,
+					format = lspkind.cmp_format({
+						mode = "symbol_text",
+					}),
 				},
-				sorting = defaults.sorting,
 			}
 		end,
 	},
 	{
 		"ray-x/lsp_signature.nvim",
+		version = "*", -- last release
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			"neovim/nvim-lspconfig",
@@ -284,6 +212,9 @@ return {
 			handler_opts = { border = "single" },
 			extra_trigger_chars = { "(", "," },
 		},
+		config = function(_, opts)
+			require("lsp_signature").setup(opts)
+		end,
 	},
 	{
 		"L3MON4D3/LuaSnip",
@@ -311,5 +242,9 @@ return {
 			{ "<C-d>", function() require("luasnip").jump(1) end,  mode = "s" },
 			{ "<C-b>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
 		},
+	},
+	{
+		"j-hui/fidget.nvim",
+		opts = {},
 	},
 }
