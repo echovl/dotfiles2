@@ -22,18 +22,33 @@ return {
 		lazy = false,
 	},
 	{
-		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",
+		"supermaven-inc/supermaven-nvim",
 		event = "InsertEnter",
 		config = function(_, opts)
-			require("copilot").setup(opts)
+			require("supermaven-nvim").setup(opts)
 		end,
 		opts = {
-			suggestion = { enabled = true, auto_trigger = true, keymap = { accept = "<C-J>" } },
-			filetypes = {
-				markdown = true,
-				help = true,
+			keymaps = {
+				accept_suggestion = "<C-j>",
+				clear_suggestion = "<C-]>",
+				accept_word = "<C-w>",
 			},
+			disable_keymaps = false,
 		},
 	},
+	-- {
+	-- 	"zbirenbaum/copilot.lua",
+	-- 	cmd = "Copilot",
+	-- 	event = "InsertEnter",
+	-- 	config = function(_, opts)
+	-- 		require("copilot").setup(opts)
+	-- 	end,
+	-- 	opts = {
+	-- 		suggestion = { enabled = true, auto_trigger = true, keymap = { accept = "<C-J>" } },
+	-- 		filetypes = {
+	-- 			markdown = true,
+	-- 			help = true,
+	-- 		},
+	-- 	},
+	-- },
 }
