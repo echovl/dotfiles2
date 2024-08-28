@@ -2,9 +2,8 @@
 
 * {
   font-family:
-    Jetbrains Mono,
-    "Font Awesome 6 Free",
-    sans-serif;
+    Cantarell,
+    "Font Awesome 6 Free";
   font-size: 12px;
   padding: 0px;
   margin: 0px;
@@ -20,39 +19,44 @@
 #network,
 #pulseaudio,
 #tray,
-#workspaces,
+#custom-spotify,
 #window {
   padding: 4px 8px;
   margin: 2px;
   border-radius: 5px;
-  background: transparent;
-  font-weight: bolder;
-  color: @base07;
+  font-weight: 500;
+  color: #FFF;
+}
+
+#custom-spotify-prev {
+  margin-left: 20px;
+}
+
+#custom-spotify-prev,
+#custom-spotify-next {
+  padding: 4px 6px;
 }
 
 window#waybar {
-  background: rgba(29, 32, 33, 0.5);
-}
-
-#workspaces button.empty {
-  color: @base08;
-  background: transparent;
+  background: @base00;
 }
 
 #workspaces button label {
-  color: @base03;
-  background: transparent;
+  color: @base04;
   padding: 0 10px;
+  font-weight: 700;
 }
 
 #workspaces button.focused label,
 #workspaces button.active label {
-  color: @base08;
-  background: transparent;
+  color: #FFF;
+  background: @base0D;
+  font-weight: 700;
 }
 
 #workspaces {
   padding: 0 2px;
+  margin: 7px;
 }
 
 #workspaces button {

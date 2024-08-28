@@ -1,12 +1,19 @@
-alias ls="ls --color=tty"
+alias ls="exa --icons"
 alias grep="grep --color=tty"
-alias lsa="ls -lah"
-alias l="ls -lah"
-alias ll="ls -lh"
-alias la="ls -lAh"
+alias lsa="exa -lah --icons"
+alias l="exa -lah --icons"
+alias ll="exa -lh --icons"
+alias la="exa -lAh --icons"
 
 alias sudo="sudo -v; sudo "
 alias miseup='eval "$(mise activate zsh)"'
+
+setopt extended_history       # record timestamp of command in HISTFILE
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_dups       # ignore duplicated commands history list
+setopt hist_ignore_space      # ignore commands that start with space
+setopt hist_verify            # show command with history expansion to user before running it
+setopt share_history          # share command history data
 
 # Completion
 source $ZDOTDIR/completion.zsh
@@ -46,6 +53,9 @@ bindkey -M vicmd "^[[1;5D" backward-word
 
 # Prompt
 eval "$(starship init zsh)"
+
+# fzf
+source <(fzf --zsh)
 
 # Plugins
 source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh

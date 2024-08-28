@@ -22,6 +22,12 @@ hook = 'swaymsg reload'
 rewrite = false
 
 [[item]]
+file = '~/.config/polybar/colors.ini'
+template = 'polybar'
+rewrite = true
+hook = 'polybar-msg cmd restart &'
+
+[[item]]
 file = '~/.config/alacritty.toml'
 template = 'alacritty'
 subtemplate = 'default-256'
@@ -57,14 +63,19 @@ subtemplate = 'colors'
 rewrite = true
 
 [[item]]
-file = "~/.themes/FlatColor/colors3"
-template = "gtk-flatcolor"
-subtemplate = "gtk-3"
-rewrite = true
-hook = "systemctl restart --user xsettingsd"
+file = '~/.config/zathura/zathurarc'
+template = 'zathura'
+rewrite = false
 
-[[item]]
-file = "~/.themes/FlatColor/colors2"
-template = "gtk-flatcolor"
-subtemplate = "gtk-2"
-rewrite = true
+# [[item]]
+# file = "~/.themes/FlatColor/colors3"
+# template = "gtk-flatcolor"
+# subtemplate = "gtk-3"
+# rewrite = true
+# hook = "systemctl restart --user xsettingsd"
+#
+# [[item]]
+# file = "~/.themes/FlatColor/colors2"
+# template = "gtk-flatcolor"
+# subtemplate = "gtk-2"
+# rewrite = true

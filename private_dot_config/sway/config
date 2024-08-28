@@ -5,25 +5,25 @@
 # Read `man 5 sway` for a complete reference.
 
 # Start flavours
-## Base16 Gruvbox dark, hard
-# Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+## Base16 Catppuccin Mocha
+# Author: https://github.com/catppuccin/catppuccin
 
-set $base00 #1d2021
-set $base01 #3c3836
-set $base02 #504945
-set $base03 #665c54
-set $base04 #bdae93
-set $base05 #d5c4a1
-set $base06 #ebdbb2
-set $base07 #fbf1c7
-set $base08 #fb4934
-set $base09 #fe8019
-set $base0A #fabd2f
-set $base0B #b8bb26
-set $base0C #8ec07c
-set $base0D #83a598
-set $base0E #d3869b
-set $base0F #d65d0e
+set $base00 #1e1e2e
+set $base01 #181825
+set $base02 #313244
+set $base03 #45475a
+set $base04 #585b70
+set $base05 #cdd6f4
+set $base06 #f5e0dc
+set $base07 #b4befe
+set $base08 #f38ba8
+set $base09 #fab387
+set $base0A #f9e2af
+set $base0B #a6e3a1
+set $base0C #94e2d5
+set $base0D #89b4fa
+set $base0E #cba6f7
+set $base0F #f2cdcd
 # End flavours
 
 ### Variables
@@ -38,15 +38,15 @@ set $up k
 set $right l
 
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output eDP-1 background ~/wallpapers/background2.png fill
+output eDP-1 background /usr/share/backgrounds/gnome/blobs-l.svg fill
 
 # Start dunst
 exec dunst &
 
-exec xrdb ~/.Xresources
+# exec xrdb ~/.Xresources
 
 # Polkit
-exec /usr/lib/polkit-gnome &
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1  &
 
 # Autotiling
 exec autotiling --limit 2
@@ -74,7 +74,7 @@ focus_follows_mouse no
 # Gaps
 gaps inner 10
 gaps outer 5
-gaps bottom 5
+# gaps bottom 5
 
 # Border
 default_border pixel 1
@@ -98,7 +98,8 @@ client.unfocused $base00 $base00 $base00 $base04 $base04
 
 # Rabby popups
 for_window [class="Brave-browser" instance="crx_acmacodkjbdgmoleebolmdjonilkdbch"] floating enable 
-for_window [class="Chromium" instance="crx_acmacodkjbdgmoleebolmdjonilkdbch"] floating enable 
+for_window [app_id="chrome-acmacodkjbdgmoleebolmdjonilkdbch-Default"] floating enable
+# float apps
 for_window [app_id="gscreenshot"] floating enable 
 
 # Zoom
@@ -108,7 +109,7 @@ for_window [class="zoom"] floating enable
 for_window [app_id="pavucontrol"] floating enable
 
 # Terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec foot
 
 # Kill focused window
 bindsym $mod+q kill

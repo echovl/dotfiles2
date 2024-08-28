@@ -3,11 +3,14 @@
     "position": "top",
     "height": "auto",
     "width": "auto",
-    "margin-bottom": -5,
+    "margin-bottom": 0, // -5 for hyprland
     "spacing": 0,
     "modules-left": [
-        "hyprland/workspaces",
-        "hyprland/window"
+        "sway/workspaces",
+        "sway/window",
+        "custom/spotify-prev",
+        "custom/spotify-next",
+        "custom/spotify"
     ],
     "modules-right": [
         "tray",
@@ -34,8 +37,8 @@
     },
     "clock": {
         "interval": 60,
-        "format": " {:%H:%M}",
-        "format-alt": " {:%a, %b %d %H:%M}",
+        "format": "{:%b %d,  %H:%M}",
+        "tooltip": false,
         "max-length": 25
     },
     "battery": {
@@ -45,7 +48,7 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{capacity}% {icon}",
+        "format": "{icon}  {capacity}%",
         "format-charging": "{capacity}% ",
         "format-icons": [
             "",
@@ -58,15 +61,15 @@
     },
     "backlight": {
         "device": "intel_backlight",
-        "format": "{percent}% {icon}",
+        "format": "{icon}  {percent}%",
         "format-icons": [
             ""
         ]
     },
     "pulseaudio": {
-        "format": "{volume}% {icon}",
-        "format-bluetooth": "{volume}% {icon}",
-        "format-muted": "0% ",
+        "format": "{icon}  {volume}% ",
+        "format-bluetooth": "{icon} {volume}%",
+        "format-muted": " 0%",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
@@ -91,7 +94,7 @@
         "separate-outputs": true
     },
     "hyprland/window": {
-        "format": " {class}",
+        "format": "  {class}",
         "max-length": 50,
         "separate-outputs": true
     },
@@ -106,5 +109,25 @@
         "tooltip-format-ethernet": "{ifname} ",
         "tooltip-format-disconnected": "Disconnected",
         "max-length": 50
+    },
+    "custom/spotify": {
+        "format": "{}",
+        "tooltip": true,
+        "exec": "python ~/.local/bin/spotify_status.py",
+        "exec-if": "pgrep spotify",
+        "interval": 1,
+        "on-click": "playerctl -p spotify play-pause",
+    },
+    "custom/spotify-prev": {
+        "format": "",
+        "tooltip": true,
+        "tooltip-format": "Previous Track",
+        "on-click": "playerctl -p spotify previous",
+    },
+    "custom/spotify-next": {
+        "format": "",
+        "tooltip": true,
+        "tooltip-format": "Next Track",
+        "on-click": "playerctl -p spotify next"
     }
 }

@@ -1,0 +1,47 @@
+#! /bin/sh
+
+# cursor
+xsetroot -cursor_name left_ptr
+
+# remap capslock to escape
+setxkbmap -option ctrl:nocaps
+
+# load Xresources
+xrdb -merge ~/.Xresources
+
+# hotkeys
+pgrep -x sxhkd > /dev/null || sxhkd &
+
+# wallpaper
+nitrogen ~/Pictures/house.jpg --set-scaled
+
+# compositor
+picom -b
+
+# polkit agent
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# notification daemon
+dunst &
+
+# polybar
+~/.config/polybar/launch.sh &
+
+bspc monitor -d 1 2 3 4 5 6 7 8 9 10
+
+bspc config border_width         2
+bspc config focused_border_color "#F47E17"
+bspc config window_gap          12
+
+bspc config split_ratio          0.55
+bspc config borderless_monocle   false
+bspc config gapless_monocle      false
+
+bspc rule -a rofi border=on
+bspc config external_rules_command ~/.config/bspwm/external_rules
+
+#bspc rule -a Gimp desktop='^8' state=floating follow=on
+#bspc rule -a Chromium desktop='^2'
+#bspc rule -a mplayer2 state=floating
+#bspc rule -a Kupfer.py focus=on
+#bspc rule -a Screenkey manage=off

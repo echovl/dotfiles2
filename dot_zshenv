@@ -16,8 +16,8 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 # History
 export HISTFILE="$ZDOTDIR/.zhistory"    # History filepath
-export HISTSIZE=10000                   # Maximum events for internal history
-export SAVEHIST=10000                   # Maximum events in history file
+export HISTSIZE=100000                  # Maximum events for internal history
+export SAVEHIST=100000                  # Maximum events in history file
 
 # Default user
 export DEFAULT_USER="echo"
@@ -30,8 +30,8 @@ export GOROOT="/usr/lib/go"
 export BUN_INSTALL="$HOME/.bun"
 
 # Sway
-export GDK_BACKEND="wayland,x11"
-export QT_QPA_PLATFORM="wayland;xcb"
+# export GDK_BACKEND="wayland,x11"
+# export QT_QPA_PLATFORM="wayland;xcb"
 # export XDG_CURRENT_DESKTOP="sway"
 
 # nvim as manpager
@@ -54,3 +54,6 @@ if ! [[ $PATH =~ "$HOME/.config/.foundry/bin" ]]; then
     export PATH="$HOME/.config/.foundry/bin:$PATH"
 fi
 
+if ! [[ $PATH =~ "$HOME/.cargo/bin" ]]; then
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi

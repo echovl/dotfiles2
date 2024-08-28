@@ -1,7 +1,7 @@
 @import "~/.config/rofi/colors.rasi"
 
 configuration {
-  font: "JetBrainsMono Nerd Font 10";
+  font: "Cantarell 12";
 
   show-icons: true;
 
