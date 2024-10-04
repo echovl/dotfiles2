@@ -77,7 +77,3 @@ style = "Regular"
 [window.padding]
 x = 10
 y = 8
-
-[window]
-decorations = "none"
-decorations_theme_variant = "Dark"

@@ -6,8 +6,8 @@
     "margin-bottom": 0, // -5 for hyprland
     "spacing": 0,
     "modules-left": [
-        "sway/workspaces",
-        "sway/window",
+        "hyprland/workspaces",
+        "hyprland/window",
         "custom/spotify-prev",
         "custom/spotify-next",
         "custom/spotify"
@@ -32,7 +32,7 @@
         "on-click": "activate"
     },
     "tray": {
-        "icon-size": 21,
+        "icon-size": 20,
         "spacing": 16
     },
     "clock": {
@@ -48,7 +48,7 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{icon}  {capacity}%",
+        "format": "{icon} {capacity}%",
         "format-charging": "{capacity}% ",
         "format-icons": [
             "",
@@ -61,13 +61,13 @@
     },
     "backlight": {
         "device": "intel_backlight",
-        "format": "{icon}  {percent}%",
+        "format": "{icon} {percent}%",
         "format-icons": [
             ""
         ]
     },
     "pulseaudio": {
-        "format": "{icon}  {volume}% ",
+        "format": "{icon} {volume}% ",
         "format-bluetooth": "{icon} {volume}%",
         "format-muted": " 0%",
         "format-icons": {
@@ -99,30 +99,31 @@
         "separate-outputs": true
     },
     "network": {
-        "interface": "wlp0s20f3",
+        "interface": "wlp6s0",
         "format": "{ifname}",
-        "format-wifi": "{signalStrength}% ",
-        "format-ethernet": "{ipaddr}/{cidr} 󰊗",
+        "format-wifi": " {signalStrength}%",
+        "format-ethernet": "󰊗 {ipaddr}/{cidr}",
         "format-disconnected": "", //An empty format will hide the module.
-        "tooltip-format": "{ifname} via {gwaddr} 󰊗",
-        "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+        "tooltip-format": "󰊗 {ifname} via {gwaddr}",
+        "tooltip-format-wifi": " {essid} ({signalStrength}%)",
         "tooltip-format-ethernet": "{ifname} ",
         "tooltip-format-disconnected": "Disconnected",
         "max-length": 50
     },
     "custom/spotify": {
         "format": "{}",
+        "max-length": 25,
         "tooltip": true,
         "exec": "python ~/.local/bin/spotify_status.py",
         "exec-if": "pgrep spotify",
         "interval": 1,
-        "on-click": "playerctl -p spotify play-pause",
+        "on-click": "playerctl -p spotify play-pause"
     },
     "custom/spotify-prev": {
         "format": "",
         "tooltip": true,
         "tooltip-format": "Previous Track",
-        "on-click": "playerctl -p spotify previous",
+        "on-click": "playerctl -p spotify previous"
     },
     "custom/spotify-next": {
         "format": "",

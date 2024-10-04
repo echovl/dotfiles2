@@ -7,3 +7,5 @@ vim.cmd("colorscheme catppuccin")
 
 vim.cmd("highlight LineNr guibg=NONE")
 vim.cmd("highlight SignColumn guibg=NONE")
+
+vim.g.python3_host_prog = vim.fn.expand("~/.virtualenvs/neovim/bin/python3")
