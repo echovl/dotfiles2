@@ -28,7 +28,7 @@ window {
     height:         300;
     border-radius:  8;
     border: 1px;
-    border-color: @lightbg;
+    border-color: @border-color;
 }
 
 inputbar {

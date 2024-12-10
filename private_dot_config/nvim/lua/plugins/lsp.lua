@@ -2,7 +2,12 @@ return {
 	{
 		"pmizio/typescript-tools.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		opts = {},
+		config = function()
+			require("typescript-tools").setup({
+				root_dir = require("lspconfig").util.root_pattern("tsconfig.json", "package.json"),
+				single_file_support = false,
+			})
+		end,
 	},
 	{
 		"neovim/nvim-lspconfig",
@@ -12,44 +17,50 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 			"hrsh7th/cmp-nvim-lsp",
 		},
-		opts = {
-			servers = {
-				gopls = {},
-				-- tsserver = {},
-				rust_analyzer = {},
-				jsonls = {},
-				html = {},
-				emmet_language_server = {},
-				solidity_ls_nomicfoundation = {},
-				lua_ls = {
-					settings = {
-						Lua = {
-							diagnostics = {
-								globals = { "vim" },
-							},
-						},
+		opts = function()
+			local lspconfig = require("lspconfig")
+			return {
+				servers = {
+					gopls = {},
+					-- tsserver = {},
+					denols = {
+						root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc", "deps.ts"),
 					},
-				},
-				pylsp = {
-					settings = {
-						pylsp = {
-							plugins = {
-								rope_autoimport = {
-									enabled = true,
-								},
-								pycodestyle = {
-									enabled = false,
-								},
-								mypy = {
-									enabled = false,
-									live_mode = true,
+					rust_analyzer = {},
+					jsonls = {},
+					html = {},
+					emmet_language_server = {},
+					solidity_ls_nomicfoundation = {},
+					lua_ls = {
+						settings = {
+							Lua = {
+								diagnostics = {
+									globals = { "vim" },
 								},
 							},
 						},
 					},
+					pylsp = {
+						settings = {
+							pylsp = {
+								plugins = {
+									rope_autoimport = {
+										enabled = true,
+									},
+									pycodestyle = {
+										enabled = false,
+									},
+									mypy = {
+										enabled = false,
+										live_mode = true,
+									},
+								},
+							},
+						},
+					},
 				},
-			},
-		},
+			}
+		end,
 		config = function(_, opts)
 			-- keymaps
 			vim.api.nvim_create_autocmd("LspAttach", {

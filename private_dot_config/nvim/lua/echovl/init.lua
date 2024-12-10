@@ -1,5 +1,6 @@
 require("echovl.set")
 require("echovl.keymap")
+require("echovl.cmds")
 require("echovl.lazy")
 
 vim.g.gruvbox_material_background = "hard"

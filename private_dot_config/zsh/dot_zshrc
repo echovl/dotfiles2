@@ -61,8 +61,6 @@ source <(fzf --zsh)
 source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# bun completions
-[ -s "/home/echo/.bun/_bun" ] && source "/home/echo/.bun/_bun"
 
 # pnpm
 export PNPM_HOME="/home/echo/.local/share/pnpm"
@@ -71,3 +69,11 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+. "/home/echovl/.deno/env"
+
+# bun completions
+[ -s "/home/echovl/.bun/_bun" ] && source "/home/echovl/.bun/_bun"
+
+# Turso
+export PATH="$PATH:/home/echovl/.turso"

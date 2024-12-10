@@ -3,7 +3,9 @@
     "position": "top",
     "height": "auto",
     "width": "auto",
-    "margin-bottom": 0, // -5 for hyprland
+    "margin-bottom": -10, // -5 for hyprland
+    "margin-left": 5,
+    "margin-right": 5,
     "spacing": 0,
     "modules-left": [
         "hyprland/workspaces",
@@ -37,7 +39,8 @@
     },
     "clock": {
         "interval": 60,
-        "format": "{:%b %d,  %H:%M}",
+        "format": "{:%b %d %H:%M}",
+        "format-alt": "{:%H:%M}",
         "tooltip": false,
         "max-length": 25
     },
@@ -89,12 +92,12 @@
         ]
     },
     "sway/window": {
-        "format": " {app_id}",
+        "format": "{app_id}",
         "max-length": 50,
         "separate-outputs": true
     },
     "hyprland/window": {
-        "format": "  {class}",
+        "format": "{class}",
         "max-length": 50,
         "separate-outputs": true
     },
@@ -120,15 +123,21 @@
         "on-click": "playerctl -p spotify play-pause"
     },
     "custom/spotify-prev": {
-        "format": "",
+        "format": "{}",
         "tooltip": true,
         "tooltip-format": "Previous Track",
-        "on-click": "playerctl -p spotify previous"
+        "exec": "echo ",
+        "on-click": "playerctl -p spotify previous",
+        "interval": 1,
+        "exec-if": "pgrep spotify"
     },
     "custom/spotify-next": {
-        "format": "",
+        "format": "{}",
         "tooltip": true,
         "tooltip-format": "Next Track",
-        "on-click": "playerctl -p spotify next"
+        "on-click": "playerctl -p spotify next",
+        "interval": 1,
+        "exec": "echo ",
+        "exec-if": "pgrep spotify"
     }
 }

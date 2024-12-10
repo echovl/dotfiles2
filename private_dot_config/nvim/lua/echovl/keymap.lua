@@ -23,22 +23,3 @@ vim.keymap.set("n", "<C-j>", ":lnext<CR>")
 vim.keymap.set("n", "<C-k", ":lprev<CR>")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-
--- Molten keymaps
-vim.keymap.set("n", "<leader>mi", ":MoltenInit<CR>", { silent = true, desc = "Initialize the plugin" })
-vim.keymap.set("n", "<leader>me", ":MoltenEvaluateOperator<CR>", { silent = true, desc = "run operator selection" })
-vim.keymap.set("n", "<leader>rl", ":MoltenEvaluateLine<CR>", { silent = true, desc = "evaluate line" })
-vim.keymap.set("n", "<leader>rr", ":MoltenReevaluateCell<CR>", { silent = true, desc = "re-evaluate cell" })
-vim.keymap.set(
-	"v",
-	"<localleader>r",
-	":<C-u>MoltenEvaluateVisual<CR>gv",
-	{ silent = true, desc = "evaluate visual selection" }
-)
-vim.keymap.set(
-	"n",
-	"<leader>os",
-	":noautocmd MoltenEnterOutput<CR>",
-	{ desc = "open output window", silent = true }
-)
-vim.keymap.set("n", "<leader>oh", ":MoltenHideOutput<CR>", { desc = "close output window", silent = true })

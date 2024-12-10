@@ -5,16 +5,18 @@
     JetBrains Mono,
     "Font Awesome 6 Free";
   font-size: 12px;
+  font-weight: 700;
   padding: 0px;
   margin: 0px;
 }
 
 window.#waybar {
-  background-color: rgba(30, 30, 46, 0.2);
+  background-color: transparent;
 }
 
 tooltip {
   background-color: @base00;
+  color: @base05;
 }
 
 #clock,
@@ -28,41 +30,72 @@ tooltip {
 #pulseaudio,
 #tray,
 #custom-spotify,
+#custom-spotify-prev,
+#custom-spotify-next,
 #window {
   padding: 4px 8px;
   margin: 2px;
   border-radius: 5px;
-  font-weight: 500;
-  color: @base05;
+  color: @base00;
 }
 
-#custom-spotify-prev {
-  color: @base05;
-  margin-left: 20px;
+
+#custom-spotify,
+#custom-spotify-prev,
+#custom-spotify-next {
+  background-color: @base06;
+}
+
+window#waybar.empty #window {
+  background-color: transparent;
+}
+
+#window {
+  background-color: @base07;
+}
+
+#network {
+  background-color: @base0C;
+}
+
+#pulseaudio {
+  background-color: @base0D;
+}
+
+#backlight {
+  background-color: @base0E;
+}
+
+#battery {
+  background-color: @base0F;
+}
+
+#clock {
+  background-color: @base05;
 }
 
 #custom-spotify-prev,
 #custom-spotify-next {
-  color: @base05;
   padding: 4px 6px;
 }
 
 #workspaces button label {
   color: @base05;
   padding: 0 10px;
-  font-weight: 700;
 }
 
 #workspaces button.focused label,
 #workspaces button.active label {
-  color: @base05;
-  background: @base02;
-  font-weight: 700;
+  color: @base00;
+  border-radius: 5px;
+  background: @base09;
 }
 
 #workspaces {
+  margin: 2px;
+  background-color: @base00;
+  border-radius: 5px;
   color: @base05;
-  padding: 0 2px;
 }
 
 #workspaces button {
