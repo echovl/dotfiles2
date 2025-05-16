@@ -1,9 +1,12 @@
-alias ls="exa --icons"
+# Homebrew
+export PATH="/opt/homebrew/bin:$PATH"
+
+alias ls="eza --icons"
 alias grep="grep --color=tty"
-alias lsa="exa -lah --icons"
-alias l="exa -lah --icons"
-alias ll="exa -lh --icons"
-alias la="exa -lAh --icons"
+alias lsa="eza -lah --icons"
+alias l="eza -lah --icons"
+alias ll="eza -lh --icons"
+alias la="eza -lAh --icons"
 
 alias sudo="sudo -v; sudo "
 alias miseup='eval "$(mise activate zsh)"'
@@ -61,7 +64,6 @@ source <(fzf --zsh)
 source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-
 # pnpm
 export PNPM_HOME="/home/echo/.local/share/pnpm"
 case ":$PATH:" in
@@ -69,8 +71,6 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-
-. "/home/echovl/.deno/env"
 
 # bun completions
 [ -s "/home/echovl/.bun/_bun" ] && source "/home/echovl/.bun/_bun"

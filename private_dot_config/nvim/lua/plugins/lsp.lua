@@ -14,8 +14,9 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			"mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-			"hrsh7th/cmp-nvim-lsp",
+			{ "mason-org/mason-lspconfig.nvim", version = "^1.0.0" },
+			"saghen/blink.cmp",
+			-- "hrsh7th/cmp-nvim-lsp",
 		},
 		opts = function()
 			local lspconfig = require("lspconfig")
@@ -87,12 +88,14 @@ return {
 
 			-- setup servers
 			local servers = opts.servers
-			local cmp_nvim_lsp = require("cmp_nvim_lsp")
+			-- local cmp_nvim_lsp = require("cmp_nvim_lsp")
+			local blink_capabilities = require("blink.cmp").get_lsp_capabilities()
 			local capabilities = vim.tbl_deep_extend(
 				"force",
 				{},
 				vim.lsp.protocol.make_client_capabilities(),
-				cmp_nvim_lsp.default_capabilities()
+				-- cmp_nvim_lsp.default_capabilities()
+				blink_capabilities
 			)
 
 			local function setup(server)
@@ -124,7 +127,8 @@ return {
 		end,
 	},
 	{
-		"williamboman/mason.nvim",
+		"mason-org/mason.nvim",
+		version = "^1.0.0",
 		cmd = "Mason",
 		build = ":MasonUpdate",
 		opts = {
@@ -155,78 +159,78 @@ return {
 			end
 		end,
 	},
-	{
-		"hrsh7th/nvim-cmp",
-		version = false, -- last release is way too old
-		event = "InsertEnter",
-		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-nvim-lua",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-			"saadparwaiz1/cmp_luasnip",
-			"onsails/lspkind.nvim",
-		},
-		opts = function()
-			local cmp = require("cmp")
-			local select_opts = { behavior = cmp.SelectBehavior.Select }
-			local lspkind = require("lspkind")
-
-			return {
-				completion = {
-					completeopt = "menu,menuone,noinsert",
-				},
-				snippet = {
-					expand = function(args)
-						require("luasnip").lsp_expand(args.body)
-					end,
-				},
-				preselect = cmp.PreselectMode.Item,
-				mapping = {
-					["<C-y>"] = cmp.mapping.confirm({ select = false }),
-					["<C-p>"] = cmp.mapping.select_prev_item(select_opts),
-					["<C-n>"] = cmp.mapping.select_next_item(select_opts),
-					["<C-e>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.abort()
-						else
-							cmp.complete()
-						end
-					end),
-				},
-				sources = cmp.config.sources({
-					{ name = "nvim_lsp", max_item_count = 50 },
-					{ name = "luasnip" }, -- For luasnip users.
-					{ name = "nvim_lua" },
-					{ name = "path" },
-				}, { { name = "buffer" } }),
-				formatting = {
-					format = lspkind.cmp_format({
-						mode = "symbol_text",
-					}),
-				},
-			}
-		end,
-	},
-	{
-		"ray-x/lsp_signature.nvim",
-		version = "*", -- last release
-		event = { "BufReadPre", "BufNewFile" },
-		dependencies = {
-			"neovim/nvim-lspconfig",
-		},
-		opts = {
-			bind = true,
-			doc_lines = 5,
-			floating_window = true,
-			hint_enable = false,
-			handler_opts = { border = "single" },
-			extra_trigger_chars = { "(", "," },
-		},
-		config = function(_, opts)
-			require("lsp_signature").setup(opts)
-		end,
-	},
+	-- {
+	-- 	"hrsh7th/nvim-cmp",
+	-- 	version = false, -- last release is way too old
+	-- 	event = "InsertEnter",
+	-- 	dependencies = {
+	-- 		"hrsh7th/cmp-nvim-lsp",
+	-- 		"hrsh7th/cmp-nvim-lua",
+	-- 		"hrsh7th/cmp-buffer",
+	-- 		"hrsh7th/cmp-path",
+	-- 		"saadparwaiz1/cmp_luasnip",
+	-- 		"onsails/lspkind.nvim",
+	-- 	},
+	-- 	opts = function()
+	-- 		local cmp = require("cmp")
+	-- 		local select_opts = { behavior = cmp.SelectBehavior.Select }
+	-- 		local lspkind = require("lspkind")
+	--
+	-- 		return {
+	-- 			completion = {
+	-- 				completeopt = "menu,menuone,noinsert",
+	-- 			},
+	-- 			snippet = {
+	-- 				expand = function(args)
+	-- 					require("luasnip").lsp_expand(args.body)
+	-- 				end,
+	-- 			},
+	-- 			preselect = cmp.PreselectMode.Item,
+	-- 			mapping = {
+	-- 				["<C-y>"] = cmp.mapping.confirm({ select = false }),
+	-- 				["<C-p>"] = cmp.mapping.select_prev_item(select_opts),
+	-- 				["<C-n>"] = cmp.mapping.select_next_item(select_opts),
+	-- 				["<C-e>"] = cmp.mapping(function(fallback)
+	-- 					if cmp.visible() then
+	-- 						cmp.abort()
+	-- 					else
+	-- 						cmp.complete()
+	-- 					end
+	-- 				end),
+	-- 			},
+	-- 			sources = cmp.config.sources({
+	-- 				{ name = "nvim_lsp", max_item_count = 50 },
+	-- 				{ name = "luasnip" }, -- For luasnip users.
+	-- 				{ name = "nvim_lua" },
+	-- 				{ name = "path" },
+	-- 			}, { { name = "buffer" } }),
+	-- 			formatting = {
+	-- 				format = lspkind.cmp_format({
+	-- 					mode = "symbol_text",
+	-- 				}),
+	-- 			},
+	-- 		}
+	-- 	end,
+	-- },
+	-- {
+	-- 	"ray-x/lsp_signature.nvim",
+	-- 	version = "*", -- last release
+	-- 	event = { "BufReadPre", "BufNewFile" },
+	-- 	dependencies = {
+	-- 		"neovim/nvim-lspconfig",
+	-- 	},
+	-- 	opts = {
+	-- 		bind = true,
+	-- 		doc_lines = 5,
+	-- 		floating_window = true,
+	-- 		hint_enable = false,
+	-- 		handler_opts = { border = "single" },
+	-- 		extra_trigger_chars = { "(", "," },
+	-- 	},
+	-- 	config = function(_, opts)
+	-- 		require("lsp_signature").setup(opts)
+	-- 	end,
+	-- },
 	{
 		"L3MON4D3/LuaSnip",
 		dependencies = {

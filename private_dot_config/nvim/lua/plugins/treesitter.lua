@@ -6,7 +6,7 @@ return {
 		event = { "BufReadPost", "BufNewFile" },
 		opts = {
 			ensure_installed = "all",
-			ignore_install = { "comment" },
+			ignore_install = { "comment", "verilog", "systemverilog" },
 			sync_install = false,
 			auto_install = true,
 			highlight = {

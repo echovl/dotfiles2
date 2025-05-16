@@ -24,7 +24,7 @@ export DEFAULT_USER="echo"
 
 # Go
 export GOPATH="$HOME/go"
-export GOROOT="/usr/lib/go"
+# export GOROOT="/usr/lib/go"
 
 # Bun
 export BUN_INSTALL="$HOME/.bun"
@@ -57,3 +57,5 @@ fi
 if ! [[ $PATH =~ "$HOME/.cargo/bin" ]]; then
     export PATH="$HOME/.cargo/bin:$PATH"
 fi
+
+. "$HOME/.cargo/env"

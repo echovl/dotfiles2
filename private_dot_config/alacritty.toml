@@ -60,7 +60,7 @@ color = "0xf5e0dc"
 # End flavours
 
 [font]
-size = 11.5
+size = 15
 
 [font.bold]
 family = "JetBrainsMono Nerd Font"
@@ -76,8 +76,12 @@ style = "Regular"
 
 [window.padding]
 x = 10
-y = 8
+y = 0
 
 [window]
-decorations = "none"
 decorations_theme_variant = "Dark"
+
+[keyboard]
+bindings = [
+  { key = "Key6", mods = "Control", chars = "\u001e" }
+]
