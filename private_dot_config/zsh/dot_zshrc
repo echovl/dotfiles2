@@ -73,7 +73,9 @@ esac
 # pnpm end
 
 # bun completions
-[ -s "/home/echovl/.bun/_bun" ] && source "/home/echovl/.bun/_bun"
+[ -s "/opt/homebrew/share/zsh/site-functions/_bun" ] && source "/opt/homebrew/share/zsh/site-functions/_bun"
 
 # Turso
 export PATH="$PATH:/home/echovl/.turso"
+
+. "$HOME/.local/share/../bin/env"

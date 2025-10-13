@@ -4,8 +4,8 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
 		config = function()
 			require("typescript-tools").setup({
-				root_dir = require("lspconfig").util.root_pattern("tsconfig.json", "package.json"),
-				single_file_support = false,
+				-- root_dir = require("lspconfig").util.root_pattern("tsconfig.json", "package.json"),
+				-- single_file_support = false,
 			})
 		end,
 	},
@@ -19,14 +19,10 @@ return {
 			-- "hrsh7th/cmp-nvim-lsp",
 		},
 		opts = function()
-			local lspconfig = require("lspconfig")
 			return {
 				servers = {
 					gopls = {},
 					-- tsserver = {},
-					denols = {
-						root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc", "deps.ts"),
-					},
 					rust_analyzer = {},
 					jsonls = {},
 					html = {},
@@ -103,7 +99,9 @@ return {
 					capabilities = vim.deepcopy(capabilities),
 				}, servers[server] or {})
 
-				require("lspconfig")[server].setup(server_opts)
+				-- require("lspconfig")[server].setup(server_opts)
+				vim.lsp.config(server, server_opts)
+				vim.lsp.enable(server)
 			end
 
 			-- get all the servers that are available thourgh mason-lspconfig

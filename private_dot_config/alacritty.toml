@@ -64,15 +64,15 @@ size = 15
 
 [font.bold]
 family = "JetBrainsMono Nerd Font"
-style = "Bold"
+style = "Regular"
 
 [font.italic]
 family = "JetBrainsMono Nerd Font"
-style = "Italic"
+style = "Regular"
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
-style = "Regular"
+style = "Light"
 
 [window.padding]
 x = 10
