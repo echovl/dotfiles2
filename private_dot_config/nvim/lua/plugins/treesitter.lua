@@ -3,10 +3,11 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		cmd = { "TSUpdateSync" },
+		branch = "master",
 		event = { "BufReadPost", "BufNewFile" },
 		opts = {
 			ensure_installed = "all",
-			ignore_install = { "comment", "verilog", "systemverilog" },
+			ignore_install = { "comment", "verilog", "systemverilog", "ipkg" },
 			sync_install = false,
 			auto_install = true,
 			highlight = {
