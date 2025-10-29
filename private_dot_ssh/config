@@ -1,0 +1,42 @@
+Host github.com
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/id_ed25519
+
+Host shadow-vps
+  HostName 167.235.94.201
+  User root
+
+Host vps-ssd
+  HostName 15.235.51.163
+  User ubuntu
+
+Host vps-hdd
+  HostName 141.94.200.119
+  User ubuntu
+
+host shadow-ec2
+  HostName ec2-54-80-96-31.compute-1.amazonaws.com
+  User ubuntu
+  IdentityFile ~/secrets/shadow-node.pem
+
+host ramses-rxp
+  HostName ec2-3-93-217-234.compute-1.amazonaws.com
+  User ubuntu
+  IdentityFile ~/secrets/ramses-rxp.pem
+
+host pucp-server-bridge
+  HostName 200.16.4.64
+  User bridge
+
+host pucp-server
+  HostName 172.19.4.19
+  User jvillegas
+  ProxyJump pucp-server-bridge
+
+host echobox
+  HostName echobox.me
+  User echo
+
+host echobox-local
+  HostName 192.168.18.196
+  User echo
