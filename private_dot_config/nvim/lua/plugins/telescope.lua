@@ -7,6 +7,7 @@ return {
 			{ "<leader>pf", ":lua require('telescope.builtin').find_files()<CR>", mode = "n" },
 			{ "<C-p>", ":lua require('telescope.builtin').git_files()<CR>", mode = "n" },
 			{ "<leader>ps", ":lua require('telescope.builtin').live_grep()<CR>", mode = "n" },
+			{ "<leader>pb", ":lua require('telescope.builtin').buffers()<CR>", mode = "n" },
 		},
 		dependencies = {
 			"nvim-lua/plenary.nvim",
