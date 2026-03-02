@@ -3,9 +3,9 @@
     "position": "top",
     "height": "auto",
     "width": "auto",
-    "margin-bottom": -10, // -5 for hyprland
-    "margin-left": 5,
-    "margin-right": 5,
+    "margin-bottom": -5, // -5 for hyprland
+    "margin-left": 0,
+    "margin-right": 0,
     "spacing": 0,
     "modules-left": [
         "hyprland/workspaces",
@@ -16,6 +16,8 @@
     ],
     "modules-right": [
         "tray",
+        "cpu",
+        "memory",
         "network",
         "pulseaudio",
         "backlight",
@@ -39,13 +41,13 @@
     },
     "clock": {
         "interval": 60,
-        "format": "{:%b %d %H:%M}",
-        "format-alt": "{:%H:%M}",
+        "format": "{:%A %H:%M}",
+        "format-alt": "{:%d %B %Y}",
         "tooltip": false,
         "max-length": 25
     },
     "battery": {
-        "bat": "BAT0",
+        "bat": "BAT1",
         "interval": 60,
         "states": {
             "warning": 30,
@@ -101,8 +103,21 @@
         "max-length": 50,
         "separate-outputs": true
     },
+    "cpu": {
+        "interval": 5,
+        "format": " {usage}%",
+        "tooltip": true,
+        "max-length": 10
+    },
+    "memory": {
+        "interval": 5,
+        "format": " {percentage}%",
+        "tooltip": true,
+        "tooltip-format": "{used:0.1f}GiB / {total:0.1f}GiB",
+        "max-length": 10
+    },
     "network": {
-        "interface": "wlp6s0",
+        "interface": "wlan0",
         "format": "{ifname}",
         "format-wifi": " {signalStrength}%",
         "format-ethernet": "󰊗 {ipaddr}/{cidr}",

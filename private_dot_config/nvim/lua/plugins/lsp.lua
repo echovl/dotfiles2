@@ -1,14 +1,14 @@
 return {
-	{
-		"pmizio/typescript-tools.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		config = function()
-			require("typescript-tools").setup({
-				-- root_dir = require("lspconfig").util.root_pattern("tsconfig.json", "package.json"),
-				-- single_file_support = false,
-			})
-		end,
-	},
+	-- {
+	-- 	"pmizio/typescript-tools.nvim",
+	-- 	dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+	-- 	config = function()
+	-- 		require("typescript-tools").setup({
+	-- 			-- root_dir = require("lspconfig").util.root_pattern("tsconfig.json", "package.json"),
+	-- 			-- single_file_support = false,
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
@@ -22,6 +22,7 @@ return {
 			return {
 				servers = {
 					gopls = {},
+					tsgo = {},
 					-- tsserver = {},
 					rust_analyzer = {},
 					jsonls = {},
@@ -157,78 +158,6 @@ return {
 			end
 		end,
 	},
-	-- {
-	-- 	"hrsh7th/nvim-cmp",
-	-- 	version = false, -- last release is way too old
-	-- 	event = "InsertEnter",
-	-- 	dependencies = {
-	-- 		"hrsh7th/cmp-nvim-lsp",
-	-- 		"hrsh7th/cmp-nvim-lua",
-	-- 		"hrsh7th/cmp-buffer",
-	-- 		"hrsh7th/cmp-path",
-	-- 		"saadparwaiz1/cmp_luasnip",
-	-- 		"onsails/lspkind.nvim",
-	-- 	},
-	-- 	opts = function()
-	-- 		local cmp = require("cmp")
-	-- 		local select_opts = { behavior = cmp.SelectBehavior.Select }
-	-- 		local lspkind = require("lspkind")
-	--
-	-- 		return {
-	-- 			completion = {
-	-- 				completeopt = "menu,menuone,noinsert",
-	-- 			},
-	-- 			snippet = {
-	-- 				expand = function(args)
-	-- 					require("luasnip").lsp_expand(args.body)
-	-- 				end,
-	-- 			},
-	-- 			preselect = cmp.PreselectMode.Item,
-	-- 			mapping = {
-	-- 				["<C-y>"] = cmp.mapping.confirm({ select = false }),
-	-- 				["<C-p>"] = cmp.mapping.select_prev_item(select_opts),
-	-- 				["<C-n>"] = cmp.mapping.select_next_item(select_opts),
-	-- 				["<C-e>"] = cmp.mapping(function(fallback)
-	-- 					if cmp.visible() then
-	-- 						cmp.abort()
-	-- 					else
-	-- 						cmp.complete()
-	-- 					end
-	-- 				end),
-	-- 			},
-	-- 			sources = cmp.config.sources({
-	-- 				{ name = "nvim_lsp", max_item_count = 50 },
-	-- 				{ name = "luasnip" }, -- For luasnip users.
-	-- 				{ name = "nvim_lua" },
-	-- 				{ name = "path" },
-	-- 			}, { { name = "buffer" } }),
-	-- 			formatting = {
-	-- 				format = lspkind.cmp_format({
-	-- 					mode = "symbol_text",
-	-- 				}),
-	-- 			},
-	-- 		}
-	-- 	end,
-	-- },
-	-- {
-	-- 	"ray-x/lsp_signature.nvim",
-	-- 	version = "*", -- last release
-	-- 	event = { "BufReadPre", "BufNewFile" },
-	-- 	dependencies = {
-	-- 		"neovim/nvim-lspconfig",
-	-- 	},
-	-- 	opts = {
-	-- 		bind = true,
-	-- 		doc_lines = 5,
-	-- 		floating_window = true,
-	-- 		hint_enable = false,
-	-- 		handler_opts = { border = "single" },
-	-- 		extra_trigger_chars = { "(", "," },
-	-- 	},
-	-- 	config = function(_, opts)
-	-- 		require("lsp_signature").setup(opts)
-	-- 	end,
-	-- },
 	{
 		"L3MON4D3/LuaSnip",
 		dependencies = {

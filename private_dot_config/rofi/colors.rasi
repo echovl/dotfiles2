@@ -1,19 +1,19 @@
 /**
- * Base16 Catppuccin Mocha ROFI Color theme
+ * Base16 Gruvbox Material Dark, Hard ROFI Color theme
  *
  * Authors
- *  Scheme: https://github.com/catppuccin/catppuccin
- *  Template: Jordi Pakey-Rodriguez (https://github.com/0xdec), Andrea Scarpino (https://github.com/ilpianista)
+ *  Scheme: Mayush Kumar (https://github.com/MayushKumar), sainnhe (https://github.com/sainnhe/gruvbox-material-vscode)
+ *  Template: Tinted Theming (https://github.com/tinted-theming)
  */
 
 * {
-    red:                         rgba ( 243, 139, 168, 100 % );
-    blue:                        rgba ( 137, 180, 250, 100 % );
-    lightfg:                     rgba ( 245, 224, 220, 100 % );
-    lightbg:                     rgba ( 24, 24, 37, 100 % );
-    foreground:                  rgba ( 205, 214, 244, 100 % );
-    background:                  rgba ( 30, 30, 46, 100 % );
-    background-color:            rgba ( 30, 30, 46, 0 % );
+    red:                         rgba ( 234, 105, 98, 100 % );
+    blue:                        rgba ( 125, 174, 163, 100 % );
+    lightfg:                     rgba ( 235, 219, 178, 100 % );
+    lightbg:                     rgba ( 42, 40, 39, 100 % );
+    foreground:                  rgba ( 221, 199, 161, 100 % );
+    background:                  rgba ( 32, 32, 32, 100 % );
+    background-color:            rgba ( 32, 32, 32, 0 % );
     separatorcolor:              @foreground;
     border-color:                @foreground;
     selected-normal-foreground:  @lightbg;

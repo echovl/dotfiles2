@@ -4,6 +4,11 @@ return {
 	-- { "ellisonleao/gruvbox.nvim", lazy = true },
 	{ "sainnhe/gruvbox-material", lazy = true },
 	{
+		"vague-theme/vague.nvim",
+		lazy = false,
+		priority = 1000,
+	},
+	{
 		"catppuccin/nvim",
 		name = "catppuccin",
 		lazy = true,

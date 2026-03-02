@@ -1,4 +1,4 @@
-@import "~/.config/rofi/colors.rasi"
+@theme "~/.config/rofi/colors.rasi"
 
 configuration {
   font: "JetBrainsMono Nerd Font 10";
@@ -53,7 +53,7 @@ entry {
     font:   inherit;
 
     placeholder         : "Search";
-    placeholder-color   : @foreground;
+    placeholder-color   : #7f849c;
 }
 
 message {

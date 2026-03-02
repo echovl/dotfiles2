@@ -2,16 +2,15 @@
 
 * {
   font-family:
-    JetBrains Mono,
-    "Font Awesome 6 Free";
+    JetBrainsMono Nerd Font Propo;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   padding: 0px;
   margin: 0px;
 }
 
 window.#waybar {
-  background-color: transparent;
+  background-color: alpha(@base01, 0.8);
 }
 
 tooltip {
@@ -36,7 +35,8 @@ tooltip {
   padding: 4px 8px;
   margin: 2px;
   border-radius: 5px;
-  color: @base00;
+  color: @base05;
+  background-color: @base00;
 }
 
 
@@ -50,52 +50,25 @@ window#waybar.empty #window {
   background-color: transparent;
 }
 
-#window {
-  background-color: @base07;
-}
-
-#network {
-  background-color: @base0C;
-}
-
-#pulseaudio {
-  background-color: @base0D;
-}
-
-#backlight {
-  background-color: @base0E;
-}
-
-#battery {
-  background-color: @base0F;
-}
-
-#clock {
-  background-color: @base05;
-}
-
 #custom-spotify-prev,
 #custom-spotify-next {
   padding: 4px 6px;
 }
 
 #workspaces button label {
-  color: @base05;
+  color: @base03;
   padding: 0 10px;
 }
 
 #workspaces button.focused label,
 #workspaces button.active label {
-  color: @base00;
-  border-radius: 5px;
-  background: @base09;
+  color: @base05;
 }
 
 #workspaces {
   margin: 2px;
-  background-color: @base00;
   border-radius: 5px;
-  color: @base05;
+  color: @base03;
 }
 
 #workspaces button {

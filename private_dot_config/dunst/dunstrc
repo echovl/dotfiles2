@@ -22,6 +22,6 @@ separator_color = "#cdd6f4"
 
 [base16_critical]
     msg_urgency = "critical"
-    background = "#f38ba8"
-    foreground = "#f5e0dc"
+    background = "#313244"
+    foreground = "#cdd6f4"
 # End flavours
