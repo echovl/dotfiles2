@@ -10,7 +10,7 @@
 }
 
 window.#waybar {
-  background-color: alpha(@base01, 0.8);
+  background-color: alpha(@base00, 0.9);
 }
 
 tooltip {
@@ -28,22 +28,34 @@ tooltip {
 #network,
 #pulseaudio,
 #tray,
+#custom-power,
 #custom-spotify,
 #custom-spotify-prev,
 #custom-spotify-next,
 #window {
-  padding: 4px 8px;
+  padding: 4px 4px;
   margin: 2px;
   border-radius: 5px;
   color: @base05;
-  background-color: @base00;
+  /* background-color: @base00; */
 }
 
+tooltip {
+  background: @base00;
+  color: @base05;
+  border-radius: 4px;
+  border: 1px solid @base03;
+  padding: 6px;
+  font-size: 13px;
+}
 
-#custom-spotify,
+tooltip label {
+  color: @base05
+}
+
 #custom-spotify-prev,
 #custom-spotify-next {
-  background-color: @base06;
+  background-color: @base01;
 }
 
 window#waybar.empty #window {
@@ -52,7 +64,7 @@ window#waybar.empty #window {
 
 #custom-spotify-prev,
 #custom-spotify-next {
-  padding: 4px 6px;
+  padding: 4px 8px;
 }
 
 #workspaces button label {

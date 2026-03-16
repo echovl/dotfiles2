@@ -1,5 +1,5 @@
 [global]
-font = Cantarell 10
+font = JetBrainsMono Nerd Font
 browser = /usr/bin/xdg-open
 show_indicators = yes
 frame_width = 1
@@ -7,21 +7,21 @@ corner_radius = 5
 
 # Start flavours
 [global]
-frame_color = "#cdd6f4"
-separator_color = "#cdd6f4"
+frame_color = "#ddc7a1"
+separator_color = "#ddc7a1"
 
 [base16_low]
     msg_urgency = "low"
-    background = "#181825"
-    foreground = "#45475a"
+    background = "#2a2827"
+    foreground = "#5a524c"
 
 [base16_normal]
     msg_urgency = "normal"
-    background = "#313244"
-    foreground = "#cdd6f4"
+    background = "#504945"
+    foreground = "#ddc7a1"
 
 [base16_critical]
     msg_urgency = "critical"
-    background = "#313244"
-    foreground = "#cdd6f4"
+    background = "#504945"
+    foreground = "#ddc7a1"
 # End flavours

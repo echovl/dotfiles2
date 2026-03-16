@@ -4,6 +4,7 @@ configuration {
   font: "JetBrainsMono Nerd Font 10";
 
   show-icons: true;
+  icon-theme: "Papirus";
 
   timeout {
     delay: 10;

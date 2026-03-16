@@ -8,7 +8,9 @@
     "margin-right": 0,
     "spacing": 0,
     "modules-left": [
-        "hyprland/workspaces",
+        // "dwl/tags",
+        "ext/workspaces",
+        "dwl/window",
         "hyprland/window",
         "custom/spotify-prev",
         "custom/spotify-next",
@@ -21,6 +23,7 @@
         "network",
         "pulseaudio",
         "backlight",
+        "custom/power",
         "battery"
     ],
     "modules-center": [
@@ -34,6 +37,20 @@
     "hyprland/workspaces": {
         "format": "{name}",
         "on-click": "activate"
+    },
+    "ext/workspaces": {
+        "format": "{icon}",
+        "ignore-hidden": true,
+        "on-click": "activate",
+        "sort-by-id": true
+    },
+    "dwl/tags": {
+        "num-tags": 9
+    },
+    "dwl/window": {
+        "format": "[{layout}]{title}",
+        "icon": true,
+        "icon-size": 20
     },
     "tray": {
         "icon-size": 20,
@@ -54,7 +71,7 @@
             "critical": 15
         },
         "format": "{icon} {capacity}%",
-        "format-charging": "{capacity}% ",
+        "format-charging": " {capacity}%",
         "format-icons": [
             "",
             "",
@@ -111,7 +128,7 @@
     },
     "memory": {
         "interval": 5,
-        "format": " {percentage}%",
+        "format": " {percentage}%",
         "tooltip": true,
         "tooltip-format": "{used:0.1f}GiB / {total:0.1f}GiB",
         "max-length": 10
@@ -128,11 +145,18 @@
         "tooltip-format-disconnected": "Disconnected",
         "max-length": 50
     },
+    "custom/power": {
+        "format": " {}W",
+        "interval": 5,
+        "exec": "bash -c 'export LC_ALL=C; upower -i /org/freedesktop/UPower/devices/battery_BAT1 | grep energy-rate | grep -oP \"[\\\\d.]+\" | xargs printf \"%.1f\"'",
+        "tooltip": true,
+        "tooltip-format": "Battery power draw"
+    },
     "custom/spotify": {
-        "format": "{}",
+        "format": " {}",
         "max-length": 25,
         "tooltip": true,
-        "exec": "python ~/.local/bin/spotify_status.py",
+        "exec": "bash -c 'playerctl metadata xesam:title'",
         "exec-if": "pgrep spotify",
         "interval": 1,
         "on-click": "playerctl -p spotify play-pause"
