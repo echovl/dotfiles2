@@ -1,6 +1,14 @@
-Host github.com
-  AddKeysToAgent yes
+Host github-echo
+  HostName github.com
+  User git
   IdentityFile ~/.ssh/id_ed25519
+  IdentitiesOnly yes
+
+Host github-oto
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/oto_ed25519
+  IdentitiesOnly yes
 
 Host shadow-vps
   HostName 167.235.94.201

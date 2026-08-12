@@ -29,7 +29,7 @@ window {
     height:         300;
     border-radius:  8;
     border: 1px;
-    border-color: @border-color;
+    border-color: @lightbg;
 }
 
 inputbar {

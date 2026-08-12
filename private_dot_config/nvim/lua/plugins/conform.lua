@@ -14,6 +14,7 @@ return {
 				r = { "styler" },
 				python = { "isort", "black" },
 				go = { "goimports", "gofmt" },
+				yaml = { "prettier", "prettierd", stop_after_first = true },
 				javascript = { "prettier", "prettierd", stop_after_first = true },
 				typescript = { "prettier", "prettierd", stop_after_first = true },
 				javascriptreact = { "prettier", "prettierd", stop_after_first = true },

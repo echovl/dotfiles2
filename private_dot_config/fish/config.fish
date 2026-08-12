@@ -13,3 +13,5 @@ alias miseup='eval "$(mise activate fish)"'
 set -x EDITOR "nvim"
 
 starship init fish | source
+
+fish_add_path -a "/home/echo/.foundry/bin"

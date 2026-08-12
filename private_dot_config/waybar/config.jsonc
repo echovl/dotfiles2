@@ -9,8 +9,8 @@
     "spacing": 0,
     "modules-left": [
         // "dwl/tags",
-        "ext/workspaces",
-        "dwl/window",
+        "hyprland/workspaces",
+        // "dwl/window",
         "hyprland/window",
         "custom/spotify-prev",
         "custom/spotify-next",

@@ -1,5 +1,5 @@
 [global]
-font = JetBrainsMono Nerd Font
+font = JetBrainsMono Nerd Font 10
 browser = /usr/bin/xdg-open
 show_indicators = yes
 frame_width = 1

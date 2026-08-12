@@ -1,7 +1,7 @@
 return {
 	{
 		"nvim-telescope/telescope.nvim",
-		version = "0.1.3",
+		version = "*",
 		cmd = "Telescope",
 		keys = {
 			{ "<leader>pf", ":lua require('telescope.builtin').find_files()<CR>", mode = "n" },

@@ -1,3 +1,5 @@
+-- vim.diagnostic.config({ virtual_text = true })
+
 return {
 	-- {
 	-- 	"pmizio/typescript-tools.nvim",
@@ -9,6 +11,15 @@ return {
 	-- 		})
 	-- 	end,
 	-- },
+	{
+		"rachartier/tiny-inline-diagnostic.nvim",
+		event = "VeryLazy",
+		priority = 1000,
+		config = function()
+			require("tiny-inline-diagnostic").setup()
+			vim.diagnostic.config({ virtual_text = false }) -- Disable Neovim's default virtual text diagnostics
+		end,
+	},
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
@@ -38,24 +49,25 @@ return {
 							},
 						},
 					},
-					pylsp = {
-						settings = {
-							pylsp = {
-								plugins = {
-									rope_autoimport = {
-										enabled = true,
-									},
-									pycodestyle = {
-										enabled = false,
-									},
-									mypy = {
-										enabled = false,
-										live_mode = true,
-									},
-								},
-							},
-						},
-					},
+					ty = {},
+					-- pylsp = {
+					-- 	settings = {
+					-- 		pylsp = {
+					-- 			plugins = {
+					-- 				rope_autoimport = {
+					-- 					enabled = true,
+					-- 				},
+					-- 				pycodestyle = {
+					-- 					enabled = false,
+					-- 				},
+					-- 				mypy = {
+					-- 					enabled = false,
+					-- 					live_mode = true,
+					-- 				},
+					-- 			},
+					-- 		},
+					-- 	},
+					-- },
 				},
 			}
 		end,
@@ -70,8 +82,12 @@ return {
 					client.server_capabilities.semanticTokensProvider = nil
 
 					vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, keymap_opts)
-					vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, keymap_opts)
-					vim.keymap.set("n", "]d", vim.diagnostic.goto_next, keymap_opts)
+					vim.keymap.set("n", "[d", function()
+						vim.diagnostic.jump({ count = -1 })
+					end, keymap_opts)
+					vim.keymap.set("n", "]d", function()
+						vim.diagnostic.jump({ count = 1 })
+					end, keymap_opts)
 
 					vim.keymap.set("n", "<leader>d", vim.lsp.buf.definition, keymap_opts)
 					vim.keymap.set("n", "<leader>h", vim.lsp.buf.hover, keymap_opts)
