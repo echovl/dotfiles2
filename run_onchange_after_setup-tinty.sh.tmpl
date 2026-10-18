@@ -1,0 +1,12 @@
+#!/bin/sh
+# Clone tinty's schemes and the [[items]] theme repos, then apply the current
+# scheme (default-scheme in tinty's config.toml on a new machine). That runs
+# every hook, which writes the color files the configs load.
+#
+# Runs after install-greeter (scripts go in name order), which creates the
+# palette file the greetd hook writes to. chezmoi reruns this when tinty's
+# config changes, so new items get installed and themed:
+# {{ include "private_dot_config/tinted-theming/tinty/config.toml" | sha256sum }}
+set -e
+tinty install
+tinty init

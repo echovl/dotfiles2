@@ -1,0 +1,9 @@
+# tmux plugins: tpm, which dot_tmux.conf runs, and the plugins it lists, so
+# they work without first pressing prefix + I.
+[".tmux/plugins/tpm"]
+    type = "git-repo"
+    url = "https://github.com/tmux-plugins/tpm"
+
+[".tmux/plugins/tmux-power"]
+    type = "git-repo"
+    url = "https://github.com/wfxr/tmux-power"

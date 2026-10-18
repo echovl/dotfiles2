@@ -1,0 +1,13 @@
+module qs.Panels
+AudioPanel 1.0 AudioPanel.qml
+BluetoothPanel 1.0 BluetoothPanel.qml
+NetworkPanel 1.0 NetworkPanel.qml
+BrightnessPanel 1.0 BrightnessPanel.qml
+BatteryPanel 1.0 BatteryPanel.qml
+CalendarPanel 1.0 CalendarPanel.qml
+TrayMenu 1.0 TrayMenu.qml
+WeatherPanel 1.0 WeatherPanel.qml
+NotificationsPanel 1.0 NotificationsPanel.qml
+SystemPanel 1.0 SystemPanel.qml
+MediaPanel 1.0 MediaPanel.qml
+UpdatesPanel 1.0 UpdatesPanel.qml

@@ -30,4 +30,13 @@ return {
 		},
 	},
 	-- { "navarasu/onedark.nvim",    lazy = true }
+	{
+		-- Every tinty scheme without a native port above; see echovl/theme.lua.
+		"tinted-theming/tinted-nvim",
+		lazy = true,
+		opts = {
+			apply_scheme_on_startup = false, -- echovl.theme picks the scheme
+			styles = { comments = { italic = false } }, -- like catppuccin's no_italic
+		},
+	},
 }

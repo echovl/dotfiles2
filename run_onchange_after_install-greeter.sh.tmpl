@@ -1,0 +1,23 @@
+#!/bin/sh
+# Install the greetd/tuigreet login screen files from system/ (needs root).
+# Edit the copies in system/, not the installed files: this overwrites them.
+#
+# chezmoi reruns this whenever a hash below changes:
+# greetd:   {{ include "system/etc/greetd/config.toml" | sha256sum }}
+# tuigreet: {{ include "system/etc/tuigreet/config.toml" | sha256sum }}
+# wrapper:  {{ include "system/usr/local/bin/tuigreet-tinted" | sha256sum }}
+#
+# /etc/greetd/palette is written by the tinty hook greetd-palette.sh, so only
+# make sure it exists and is ours; its contents come from `tinty apply`.
+#
+# Enabling greetd with --force takes over display-manager.service from the
+# login manager the install came with (sddm, ly, ...), from the next boot.
+set -e
+src={{ .chezmoi.sourceDir | quote }}/system
+pkexec sh -c "set -e
+  install -D -m 644 '$src/etc/greetd/config.toml' /etc/greetd/config.toml
+  install -D -m 644 '$src/etc/tuigreet/config.toml' /etc/tuigreet/config.toml
+  install -D -m 755 '$src/usr/local/bin/tuigreet-tinted' /usr/local/bin/tuigreet-tinted
+  [ -e /etc/greetd/palette ] || install -m 644 -o $(id -un) /dev/null /etc/greetd/palette
+  systemctl enable --force --quiet greetd.service
+"

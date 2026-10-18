@@ -15,3 +15,12 @@ set -x EDITOR "nvim"
 starship init fish | source
 
 fish_add_path -a "/home/echo/.foundry/bin"
+
+fish_add_path "/home/echo/.bun/bin"
+
+# set -g fish_key_bindings fish_vi_key_bindings
+
+
+# >>> railway initialize >>>
+test -f "$HOME/.railway/env.fish" && source "$HOME/.railway/env.fish"
+# <<< railway initialize <<<

@@ -1,0 +1,5 @@
+# Colors come from tinty: the tinted-yazi item in
+# ~/.config/tinted-theming/tinty/config.toml writes this flavor on `tinty apply`.
+[flavor]
+dark = "tinted-scheme"
+light = "tinted-scheme"

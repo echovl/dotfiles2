@@ -1,0 +1,15 @@
+module qs.Ui
+Glyph 1.0 Glyph.qml
+BarButton 1.0 BarButton.qml
+BarLabel 1.0 BarLabel.qml
+OpenMark 1.0 OpenMark.qml
+Hero 1.0 Hero.qml
+SectionTitle 1.0 SectionTitle.qml
+Separator 1.0 Separator.qml
+Slider 1.0 Slider.qml
+Switch 1.0 Switch.qml
+RowSurface 1.0 RowSurface.qml
+ActionButton 1.0 ActionButton.qml
+PillButton 1.0 PillButton.qml
+Field 1.0 Field.qml
+InfoPair 1.0 InfoPair.qml

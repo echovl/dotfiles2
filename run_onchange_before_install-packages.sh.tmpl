@@ -1,0 +1,16 @@
+#!/bin/sh
+# Install the packages in .chezmoidata/packages.yaml that are missing. Runs
+# before chezmoi writes any files, and again whenever that list changes.
+# Assumes CachyOS, whose repos have paru for the AUR packages.
+set -e
+repo={{ .packages.repo | join " " | quote }}
+aur={{ .packages.aur | join " " | quote }}
+
+# pacman -T prints the packages that aren't installed (or provided by another
+# one, like tuned-ppd for power-profiles-daemon), and needs no root, so an
+# up-to-date machine is never asked for a password.
+missing=$(pacman -T $repo) || true
+[ -z "$missing" ] || sudo pacman -S --needed $missing
+
+missing=$(pacman -T $aur) || true
+[ -z "$missing" ] || paru -S --needed $missing

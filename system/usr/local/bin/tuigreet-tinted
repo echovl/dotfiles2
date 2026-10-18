@@ -1,0 +1,33 @@
+#!/bin/sh
+# greetd greeter: load the tinty palette into the Linux console, then run
+# tuigreet. Settings and theme live in /etc/tuigreet/config.toml; its color
+# names (magenta, blue, ...) resolve through the console palette, so the login
+# screen follows `tinty apply`.
+#
+# /etc/greetd/palette: 16 lines of rrggbb in ANSI order, written by
+# ~/.config/tinted-theming/tinty/hooks/greetd-palette.sh. Anything else falls
+# back to Catppuccin Mocha. Arguments go to tuigreet (try --mock).
+
+palette=/etc/greetd/palette
+colors='1e1e2e f38ba8 a6e3a1 f9e2af 89b4fa cba6f7 94e2d5 cdd6f4
+        45475a f38ba8 a6e3a1 f9e2af 89b4fa cba6f7 94e2d5 b4befe'
+
+if [ -r "$palette" ] && [ "$(wc -l < "$palette")" = 16 ] &&
+   [ "$(grep -cxiE '[0-9a-f]{6}' "$palette")" = 16 ]; then
+  colors=$(cat "$palette")
+fi
+
+# The palette escape only exists on the Linux console; elsewhere it would
+# garble the terminal.
+case $(tty) in
+  /dev/tty[0-9]*)
+    i=0
+    for c in $colors; do
+      printf '\033]P%X%s' "$i" "$c"
+      i=$((i + 1))
+    done
+    printf '\033[2J\033[H'
+    ;;
+esac
+
+exec tuigreet "$@"

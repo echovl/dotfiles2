@@ -1,0 +1,9 @@
+module qs.Common
+singleton Theme 1.0 Theme.qml
+singleton Icons 1.0 Icons.qml
+singleton BarState 1.0 BarState.qml
+singleton Devices 1.0 Devices.qml
+singleton Weather 1.0 Weather.qml
+singleton Notifications 1.0 Notifications.qml
+singleton Media 1.0 Media.qml
+singleton Updates 1.0 Updates.qml

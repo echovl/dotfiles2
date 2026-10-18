@@ -1,0 +1,57 @@
+# Packages these dotfiles need on CachyOS. run_onchange_before_install-packages
+# installs the missing ones, and reruns whenever this list changes.
+packages:
+  repo:
+    # Desktop
+    - hyprland
+    - xdg-desktop-portal-hyprland
+    - quickshell
+    - dunst
+    - rofi
+    - alacritty
+    - swaybg
+    - hyprshot
+    - polkit-gnome
+    - ttf-jetbrains-mono-nerd
+    - papirus-icon-theme
+    # Login screen
+    - greetd
+    - greetd-tuigreet
+    # Bar widgets (see ~/.config/quickshell/bar/README.md) and volume keys
+    - pipewire
+    - pipewire-pulse
+    - wireplumber
+    - libpulse
+    - bluez
+    - bluez-utils
+    - networkmanager
+    - upower
+    - power-profiles-daemon
+    - imagemagick
+    - curl
+    - pacman-contrib
+    # Shell
+    - fish
+    - cachyos-fish-config
+    - starship
+    - zsh
+    - tmux
+    # Neovim, plus what treesitter, telescope and Mason's tools need
+    - neovim
+    - git
+    - base-devel
+    - tree-sitter-cli
+    - ripgrep
+    - fd
+    - unzip
+    - nodejs
+    - npm
+    - go
+    - python
+    # Files
+    - yazi
+    # AUR helper for the list below
+    - paru
+  aur:
+    - tinty-git
+    - light # brightness keys

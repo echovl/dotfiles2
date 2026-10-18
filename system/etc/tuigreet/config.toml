@@ -1,0 +1,38 @@
+# tuigreet settings, started by greetd through /usr/local/bin/tuigreet-tinted.
+#
+# Theme colors are console palette names, not hex. tuigreet-tinted loads the
+# tinty scheme into the Linux console's 16 color slots before tuigreet starts,
+# so these names follow `tinty apply`. Hex would be squashed to 8 basic colors
+# by the console.
+
+[session]
+command = "start-hyprland"
+environments = ["XDG_SESSION_TYPE=wayland", "XDG_CURRENT_DESKTOP=Hyprland"]
+
+[display]
+show_time = true
+time_format = "%a %d %b  %H:%M"
+show_title = true
+
+[remember]
+username = true
+user_session = true
+
+[secret]
+mode = "characters"
+
+[power]
+shutdown = "systemctl poweroff"
+reboot = "systemctl reboot"
+
+[theme]
+container = "black"
+border = "magenta"
+title = "blue"
+text = "gray"
+time = "white"
+greet = "blue"
+prompt = "blue"
+input = "gray"
+action = "gray"
+button = "magenta"

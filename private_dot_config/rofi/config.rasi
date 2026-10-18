@@ -27,9 +27,9 @@ window {
     location:       center;
     width:          640;
     height:         300;
-    border-radius:  8;
-    border: 1px;
-    border-color: @lightbg;
+    border-radius:  2;
+    border: 2px;
+    border-color: @blue;
 }
 
 inputbar {
@@ -37,7 +37,7 @@ inputbar {
     spacing:    12px;
     children:   [ icon-search, entry ];
     border: 0 0 1px 0;
-    border-color: @lightbg;
+    border-color: transparent;
 }
 
 icon-search {
@@ -54,7 +54,7 @@ entry {
     font:   inherit;
 
     placeholder         : "Search";
-    placeholder-color   : #7f849c;
+    placeholder-color   : @placeholder;
 }
 
 message {
@@ -83,11 +83,11 @@ element {
 }
 
 element normal active {
-    text-color: @lightbg;
+    text-color: @foreground;
 }
 
 element selected normal, element selected active {
-    background-color:   @lightbg;
+    background-color:   @alternate-active-background;
     text-color:         @foreground;
 }
 

@@ -1,0 +1,6 @@
+# Files installed outside $HOME by run_onchange_after_install-greeter.sh.tmpl
+system
+system/**
+
+# Repo docs, not dotfiles
+README.md
