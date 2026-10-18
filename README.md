@@ -22,7 +22,10 @@ polkit, and does this in order:
 
 1. `run_onchange_before_install-packages`: installs whatever is missing from
    [`.chezmoidata/packages.yaml`](.chezmoidata/packages.yaml), with pacman and
-   then paru for the AUR.
+   then paru for the AUR, then turns on the services listed there (Docker,
+   Tailscale, Mullvad, tuned) and adds you to the `docker` and `nordvpn`
+   groups. If pacman asks to remove power-profiles-daemon, answer y: tuned-ppd
+   replaces it.
 2. Writes the dotfiles, the wallpaper and the tmux plugins
    ([`.chezmoiexternal.toml`](.chezmoiexternal.toml)).
 3. `run_onchange_after_install-greeter`: installs the login screen files from
@@ -35,8 +38,9 @@ The first time you open Neovim, it installs its plugins and language servers.
 
 ## Not included
 
-Hardware-specific setup stays out of the repo. The Framework 13's power tuning
-(tuned profile and SSD/Wi-Fi tweaks) has to be redone by hand. Its screen
+Hardware-specific setup stays out of the repo. tuned is installed, but the
+Framework 13's power tuning (tuned profile and SSD/Wi-Fi tweaks) has to be
+redone by hand. Its screen
 scale is a Hyprland rule matched by panel model (`hyprland.lua`), so any other
 screen gets Hyprland's automatic scale.
 

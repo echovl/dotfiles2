@@ -1,16 +1,35 @@
 #!/bin/sh
-# Install the packages in .chezmoidata/packages.yaml that are missing. Runs
-# before chezmoi writes any files, and again whenever that list changes.
+# Install the packages in .chezmoidata/packages.yaml that are missing, then
+# enable its services and add me to its groups. Runs before chezmoi writes any
+# files, and again whenever that file changes.
 # Assumes CachyOS, whose repos have paru for the AUR packages.
 set -e
 repo={{ .packages.repo | join " " | quote }}
 aur={{ .packages.aur | join " " | quote }}
+services={{ .packages.services | join " " | quote }}
+groups={{ .packages.groups | join " " | quote }}
+user=$(id -un)
 
-# pacman -T prints the packages that aren't installed (or provided by another
-# one, like tuned-ppd for power-profiles-daemon), and needs no root, so an
-# up-to-date machine is never asked for a password.
+# Every check below needs no root, so an up-to-date machine is never asked for
+# a password. pacman -T prints the packages that aren't installed (or provided
+# by another one, like tuned-ppd for power-profiles-daemon).
 missing=$(pacman -T $repo) || true
-[ -z "$missing" ] || sudo pacman -S --needed $missing
+if [ -n "$missing" ]; then
+  if printf '%s\n' "$missing" | grep -qx tuned-ppd; then
+    echo "Answer y if pacman asks to remove power-profiles-daemon: tuned-ppd replaces it."
+  fi
+  sudo pacman -S --needed $missing
+fi
 
 missing=$(pacman -T $aur) || true
 [ -z "$missing" ] || paru -S --needed $missing
+
+off=
+for s in $services; do systemctl is-enabled -q "$s" || off="$off $s"; done
+[ -z "$off" ] || sudo systemctl enable --now $off
+
+# id with a user name reads the group database, so a group added earlier in
+# this login still counts.
+for g in $groups; do
+  id -nG "$user" | tr ' ' '\n' | grep -qx "$g" || sudo usermod -aG "$g" "$user"
+done

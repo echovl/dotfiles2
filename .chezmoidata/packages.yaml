@@ -1,10 +1,12 @@
-# Packages these dotfiles need on CachyOS. run_onchange_before_install-packages
-# installs the missing ones, and reruns whenever this list changes.
+# Packages these dotfiles and my apps need on CachyOS, plus the services and
+# groups they need. run_onchange_before_install-packages sets up whatever is
+# missing, and reruns whenever this file changes.
 packages:
   repo:
     # Desktop
     - hyprland
     - xdg-desktop-portal-hyprland
+    - xdg-desktop-portal-gtk # file-open dialogs, which Hyprland's portal lacks
     - quickshell
     - dunst
     - rofi
@@ -12,7 +14,12 @@ packages:
     - swaybg
     - hyprshot
     - polkit-gnome
+    - pavucontrol
+    - nautilus
     - ttf-jetbrains-mono-nerd
+    - noto-fonts
+    - noto-fonts-emoji
+    - noto-fonts-cjk
     - papirus-icon-theme
     # Login screen
     - greetd
@@ -26,7 +33,7 @@ packages:
     - bluez-utils
     - networkmanager
     - upower
-    - power-profiles-daemon
+    - tuned-ppd # power profiles; replaces power-profiles-daemon
     - imagemagick
     - curl
     - pacman-contrib
@@ -36,6 +43,9 @@ packages:
     - starship
     - zsh
     - tmux
+    - openssh
+    - mise
+    - bun
     # Neovim, plus what treesitter, telescope and Mason's tools need
     - neovim
     - git
@@ -48,10 +58,56 @@ packages:
     - npm
     - go
     - python
-    # Files
+    # Development
+    - docker
+    - github-cli
+    - claude-code
+    - openai-codex
+    - opencode
+    - uv
+    - pnpm
+    - yarn
+    - aws-cli-v2
+    - terraform
+    # Apps
+    - helium-browser-bin
+    - firefox
+    - keepassxc
+    - telegram-desktop
+    - vesktop-bin
+    - chatgpt-desktop-bin
+    - calibre
+    - zathura
+    - zathura-pdf-mupdf
     - yazi
+    - btop
+    # VPNs
+    - tailscale
+    - mullvad-vpn
+    # Command-line tools
+    - tree
+    - bc
+    - strace
+    - traceroute
+    - wev
     # AUR helper for the list below
     - paru
   aur:
     - tinty-git
     - light # brightness keys
+    - zoom
+    - spotify
+    - ledger-live-bin
+    - ledger-udev
+    - nordvpn-bin
+  # Enabled and started if they aren't already. tuned-ppd starts tuned itself;
+  # nordvpnd stays off, started by hand.
+  services:
+    - docker.service
+    - tailscaled.service
+    - mullvad-daemon.service
+    - tuned-ppd.service
+  # Groups to add me to, so docker and nordvpn work without sudo.
+  groups:
+    - docker
+    - nordvpn
