@@ -43,6 +43,15 @@ Singleton {
   property alias clockFormat: settings.clockFormat
   // Right-clicking the battery icon shows its percentage beside it.
   property alias batteryPercent: settings.batteryPercent
+  // The place the weather is for, picked in its popup; null follows the IP.
+  property alias weatherLocation: settings.weatherLocation
+  // Do Not Disturb: notifications go to the panel without a card, except
+  // critical ones. Kept across restarts, unlike caffeine.
+  property alias dnd: settings.dnd
+
+  // While on, the bar holds an idle inhibitor, so hypridle doesn't dim, lock
+  // or turn off the screen. Like GNOME's Caffeine, it's off after a restart.
+  property bool caffeine: false
 
   // The on-screen display Omarchy shows for volume and brightness changes.
   property string osdIcon: ""
@@ -75,6 +84,9 @@ Singleton {
       property string background: "opaque"
       property string clockFormat: "dddd HH:mm"
       property bool batteryPercent: false
+      // { name, latitude, longitude, imperial } or null
+      property var weatherLocation: null
+      property bool dnd: false
     }
   }
 }

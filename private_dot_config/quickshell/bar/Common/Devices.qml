@@ -19,6 +19,8 @@ Singleton {
   readonly property bool sourceReady: !!(source && source.audio)
   readonly property real volume: sinkReady ? sink.audio.volume : 0
   readonly property bool muted: sinkReady && sink.audio.muted
+  // No output, muted, or at zero: the bar dims the sound icon.
+  readonly property bool soundOff: !sinkReady || muted || volume <= 0
 
   PwObjectTracker {
     objects: [root.sink, root.source].filter(node => !!node)
@@ -59,7 +61,7 @@ Singleton {
   readonly property string audioIcon: {
     if (!sinkReady) return Icons.speakerMuted
     if (isHeadphones(sink)) return Icons.headphones
-    if (muted || volume <= 0) return Icons.speakerMuted
+    if (soundOff) return Icons.speakerMuted
     if (volume >= 0.67) return Icons.speakerHigh
     if (volume >= 0.34) return Icons.speakerMid
     return Icons.speakerLow
@@ -70,9 +72,38 @@ Singleton {
   readonly property var adapter: Bluetooth.defaultAdapter
   readonly property var bluetoothDevices: adapter ? adapter.devices.values : []
   readonly property var bluetoothConnected: bluetoothDevices.filter(device => device.connected)
-  readonly property string bluetoothIcon: !adapter || !adapter.enabled
+  readonly property bool bluetoothOff: !adapter || !adapter.enabled
+  readonly property string bluetoothIcon: bluetoothOff
     ? Icons.bluetoothOff
     : (bluetoothConnected.length > 0 ? Icons.bluetoothConnected : Icons.bluetooth)
+
+  // Scans the Bluetooth popup starts. BlueZ keeps scanning until told to stop,
+  // which also starves Bluetooth audio, and Quickshell drops a stop sent
+  // before BlueZ has confirmed the start. So the stop lives here, where it
+  // outlives the popup, and waits for the scan to be confirmed.
+  property int bluetoothPopups: 0
+  property bool owesDiscoveryStop: false
+
+  Timer {
+    property int attempts: 0
+    interval: 1000
+    repeat: true
+    triggeredOnStart: true
+    running: root.owesDiscoveryStop && root.bluetoothPopups === 0 && !!root.adapter && root.adapter.discovering
+    onRunningChanged: if (running) attempts = 0
+    onTriggered: {
+      // A few tries, so a scan another app holds isn't fought forever.
+      if (++attempts > 3) root.owesDiscoveryStop = false
+      else root.adapter.discovering = false
+    }
+  }
+
+  Connections {
+    target: root.adapter
+    function onDiscoveringChanged() {
+      if (!root.adapter.discovering) root.owesDiscoveryStop = false
+    }
+  }
 
   // -------------------------------------------------------------- network
 

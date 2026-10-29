@@ -19,23 +19,33 @@ Item {
   readonly property string shownSubtitle: rotating ? phrases[phraseIndex % phrases.length] : subtitle
 
   width: parent ? parent.width : implicitWidth
-  implicitHeight: Math.max(iconText.implicitHeight, labels.implicitHeight, trailingSlot.height)
+  implicitHeight: Math.max(iconSlot.implicitHeight, labels.implicitHeight, trailingSlot.height)
 
-  Text {
-    id: iconText
+  // A fixed-width slot, so titles start at the same x in every card, with the
+  // glyph scaled to one ink size whatever its natural width.
+  Item {
+    id: iconSlot
     anchors.left: parent.left
-    anchors.verticalCenter: parent.verticalCenter
-    textFormat: Text.PlainText
-    text: root.icon
-    color: Theme.foreground
-    opacity: root.iconOpacity
-    font.family: Theme.fontFamily
-    font.pixelSize: Theme.display
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    width: 28
+    implicitHeight: 28
+
+    Glyph {
+      anchors.centerIn: parent
+      width: 28
+      height: 28
+      text: root.icon
+      color: Theme.foreground
+      opacity: root.iconOpacity
+      fontSize: Theme.display
+      size: 22
+    }
   }
 
   Column {
     id: labels
-    anchors.left: iconText.right
+    anchors.left: iconSlot.right
     anchors.leftMargin: 14
     anchors.right: trailingSlot.left
     anchors.rightMargin: trailingSlot.width > 0 ? root.labelGap : 0

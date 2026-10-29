@@ -25,9 +25,10 @@ Row {
       .sort((a, b) => a - b)
   }
 
-  // Not named `focus`: that is every Item's focus property.
+  // Not named `focus`: that is every Item's focus property. Sent over
+  // Hyprland's socket, so a click or a scroll step starts no process.
   function goTo(id) {
-    Quickshell.execDetached([Quickshell.shellPath("scripts/workspace.sh"), String(id)])
+    Hyprland.dispatch('hl.dsp.focus({ workspace = "' + id + '" })')
   }
 
   function scroll(delta) {
@@ -42,14 +43,16 @@ Row {
   }
 
   Repeater {
-    model: root.ids
+    // Diffed, so a workspace appearing or going away adds or removes its own
+    // slot instead of rebuilding them all.
+    model: ScriptModel { values: root.ids }
 
     Item {
       id: slot
 
       required property int modelData
       readonly property bool focused: !!Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id === modelData
-      readonly property string label: modelData === 10 ? "0" : String(modelData)
+      readonly property string label: String(modelData)
 
       width: Math.max(20, block.width + 4)
       height: Theme.barHeight

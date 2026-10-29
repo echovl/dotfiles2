@@ -193,16 +193,16 @@ Column {
     signal clicked()
 
     width: root.width
-    height: inner.implicitHeight + 10
+    height: inner.implicitHeight + 12
 
     Row {
       id: inner
       anchors.left: parent.left
       anchors.right: parent.right
-      anchors.leftMargin: 6
-      anchors.rightMargin: 6
+      anchors.leftMargin: 10
+      anchors.rightMargin: 10
       anchors.verticalCenter: parent.verticalCenter
-      spacing: 8
+      spacing: 10
 
       Text {
         width: 22
@@ -216,7 +216,7 @@ Column {
       }
 
       Text {
-        width: parent.width - 30
+        width: parent.width - 32
         anchors.verticalCenter: parent.verticalCenter
         textFormat: Text.PlainText
         text: root.label(row.modelData)

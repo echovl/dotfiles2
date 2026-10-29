@@ -1,5 +1,9 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+# The most a module may spend running a command (Omarchy's value; the default
+# is 500 ms).
+command_timeout = 200
+
 format = """
 $username\
 $hostname\
@@ -53,14 +57,18 @@ style = "yellow"
 format = "[$virtualenv]($style) "
 style = "bright-black"
 
+# Language modules show only the project's icon. A version means running the
+# toolchain (rustc, node, go) at every prompt in a project, and nodejs runs
+# `node --version` for its engines check whenever the format uses $style, so
+# the color is spelled out.
 [nodejs]
-style = "bright-black"
+format = "via [$symbol](bright-black)"
 
 [rust]
-style = "bright-black"
+format = "via [$symbol](bright-black)"
 
 [golang]
-style = "bright-black"  
+format = "via [$symbol](bright-black)"
 
 [line_break]
 disabled = false

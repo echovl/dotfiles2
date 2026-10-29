@@ -148,6 +148,10 @@ Column {
     }
   }
 
+  Separator {
+    visible: root.iface !== ""
+  }
+
   GridLayout {
     width: parent.width
     visible: root.iface !== ""
@@ -199,6 +203,10 @@ Column {
       Repeater {
         model: root.known
         NetworkRow {}
+      }
+
+      Separator {
+        visible: root.known.length > 0 && root.others.length > 0
       }
 
       SectionTitle {

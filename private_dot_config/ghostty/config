@@ -9,7 +9,7 @@ window-inherit-working-directory = false
 font-family = JetBrainsMono Nerd Font
 font-size = 11
 
-theme = gruvbox-material-dark-hard
+theme = tinty
 
 font-feature = -calt
 font-feature = -liga

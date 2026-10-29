@@ -33,7 +33,7 @@ return {
 			return {
 				servers = {
 					gopls = {},
-					tsgo = {},
+					tsc = {},
 					-- tsserver = {},
 					rust_analyzer = {},
 					jsonls = {},

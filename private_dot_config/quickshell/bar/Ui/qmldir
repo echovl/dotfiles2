@@ -13,3 +13,7 @@ ActionButton 1.0 ActionButton.qml
 PillButton 1.0 PillButton.qml
 Field 1.0 Field.qml
 InfoPair 1.0 InfoPair.qml
+Cover 1.0 Cover.qml
+NotificationIcon 1.0 NotificationIcon.qml
+NotificationContent 1.0 NotificationContent.qml
+NotificationActions 1.0 NotificationActions.qml

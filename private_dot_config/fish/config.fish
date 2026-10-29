@@ -12,7 +12,11 @@ alias miseup='eval "$(mise activate fish)"'
 
 set -x EDITOR "nvim"
 
-starship init fish | source
+# The full init in one process; the short form runs starship twice per shell.
+starship init fish --print-full-init | source
+# starship.toml has no right_format, so skip `starship prompt --right` at
+# every prompt.
+function fish_right_prompt; end
 
 fish_add_path -a "/home/echo/.foundry/bin"
 
@@ -21,6 +25,7 @@ fish_add_path "/home/echo/.bun/bin"
 # set -g fish_key_bindings fish_vi_key_bindings
 
 
+
 # >>> railway initialize >>>
-test -f "$HOME/.railway/env.fish" && source "$HOME/.railway/env.fish"
+source "$HOME/.railway/env.fish"
 # <<< railway initialize <<<

@@ -4,7 +4,8 @@ import Quickshell
 import Quickshell.Io
 
 // Pending package updates: repositories through checkupdates (pacman-contrib),
-// AUR through paru when it's installed. Checked every two hours.
+// AUR through paru when it's installed. Checked every two hours and after
+// every pacman transaction, however it was run.
 Singleton {
   id: root
 
@@ -13,6 +14,8 @@ Singleton {
   property var aur: []
   property bool checking: false
   property bool updating: false
+  // A check was asked for while one was running; run another once it ends.
+  property bool recheck: false
 
   readonly property int count: repo.length + aur.length
 
@@ -24,7 +27,11 @@ Singleton {
   }
 
   function check() {
-    if (checking || updating) return
+    if (updating) return
+    if (checking) {
+      recheck = true
+      return
+    }
     checking = true
     repoProc.running = true
   }
@@ -51,7 +58,13 @@ Singleton {
     stdout: StdioCollector {
       onStreamFinished: root.aur = root.parse(text)
     }
-    onExited: root.checking = false
+    onExited: {
+      root.checking = false
+      if (root.recheck) {
+        root.recheck = false
+        root.check()
+      }
+    }
   }
 
   Process {
@@ -62,6 +75,23 @@ Singleton {
       root.updating = false
       root.check()
     }
+  }
+
+  // pacman writes its log on every install, upgrade and removal, so upgrades
+  // made in a terminal or by another helper clear the list too. Only the
+  // change notifications are needed, not the text.
+  FileView {
+    path: "/var/log/pacman.log"
+    preload: false
+    watchChanges: true
+    onFileChanged: settle.restart()
+  }
+
+  // Waits for the log to go quiet, so a transaction isn't checked halfway.
+  Timer {
+    id: settle
+    interval: 5000
+    onTriggered: root.check()
   }
 
   Timer {

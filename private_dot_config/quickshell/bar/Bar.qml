@@ -52,6 +52,13 @@ PanelWindow {
     }
   }
 
+  // Hyprland treats a mapped layer surface as visible, so this holds even
+  // under a fullscreen window.
+  IdleInhibitor {
+    window: bar
+    enabled: BarState.caffeine
+  }
+
   function toggle(name, item, payload) {
     const point = item.mapToItem(null, item.width / 2, 0)
     BarState.toggle(name, modelData, point.x, payload)
@@ -78,6 +85,12 @@ PanelWindow {
     // Same as double-clicking the bar.
     function cycleBackground(): void {
       BarState.cycleBackground()
+    }
+
+    // Same as clicking the cup; `qs -c bar ipc prop get bar caffeine` reads it.
+    readonly property bool caffeine: BarState.caffeine
+    function toggleCaffeine(): void {
+      BarState.caffeine = !BarState.caffeine
     }
   }
 
@@ -109,9 +122,22 @@ PanelWindow {
     onToggled: bar.toggle("calendar", clock)
   }
 
+  // Caffeine sits left of the clock, where Omarchy keeps its toggles, apart
+  // from the status icons on the right. Dimmed while the screen may idle.
+  BarButton {
+    id: caffeineButton
+    anchors.right: clock.left
+    anchors.verticalCenter: parent.verticalCenter
+    slot: 21
+    glyph: Icons.stayAwake
+    dimmed: !BarState.caffeine
+    color: bar.foreground
+    onClicked: BarState.caffeine = !BarState.caffeine
+  }
+
   NowPlaying {
     id: media
-    anchors.right: clock.left
+    anchors.right: caffeineButton.left
     anchors.verticalCenter: parent.verticalCenter
     color: bar.foreground
     open: bar.isOpen("media")
@@ -131,14 +157,15 @@ PanelWindow {
     onClicked: bar.toggle("updates", updatesButton)
   }
 
-  // Beside the clock, as on Omarchy. Middle-click fetches it again.
+  // Beside the clock, as on Omarchy; a pin while it needs a place picked.
+  // Middle-click fetches it again.
   BarButton {
     id: weatherButton
     anchors.left: clock.right
     anchors.verticalCenter: parent.verticalCenter
-    visible: Weather.ready
+    visible: Weather.ready || Weather.needsPlace
     slot: 21
-    glyph: Weather.icon
+    glyph: Weather.ready ? Weather.icon : Icons.pin
     color: bar.foreground
     open: bar.isOpen("weather")
     onClicked: button => {
@@ -171,6 +198,7 @@ PanelWindow {
       visible: !!Devices.adapter
       glyph: Devices.bluetoothIcon
       color: bar.foreground
+      dimmed: Devices.bluetoothOff
       open: bar.isOpen("bluetooth")
       onClicked: bar.toggle("bluetooth", bluetoothButton)
     }
@@ -187,6 +215,7 @@ PanelWindow {
       id: audioButton
       glyph: Devices.audioIcon
       color: bar.foreground
+      dimmed: Devices.soundOff
       open: bar.isOpen("audio")
       onClicked: button => {
         if (button === Qt.RightButton && Devices.sinkReady) Devices.sink.audio.muted = !Devices.sink.audio.muted
@@ -219,20 +248,21 @@ PanelWindow {
       }
     }
 
-    // Right-click toggles Do Not Disturb. A dot marks notifications that
-    // arrived while it was on.
+    // Right-click toggles Do Not Disturb. A dot marks notifications it held
+    // back that the panel hasn't shown yet.
     BarButton {
       id: notificationsButton
-      glyph: Notifications.paused ? Icons.bellOff : Icons.bell
+      glyph: Notifications.dnd ? Icons.bellOff : Icons.bell
       color: bar.foreground
+      dimmed: Notifications.dnd
       open: bar.isOpen("notifications")
       onClicked: button => {
-        if (button === Qt.RightButton) Notifications.setPaused(!Notifications.paused)
+        if (button === Qt.RightButton) Notifications.setDnd(!Notifications.dnd)
         else bar.toggle("notifications", notificationsButton)
       }
 
       Rectangle {
-        visible: Notifications.paused && Notifications.waiting > 0
+        visible: Notifications.unseen > 0
         width: 5
         height: 5
         radius: 2.5

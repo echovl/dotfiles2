@@ -6,7 +6,7 @@ size = 10.5
 
 [font.bold]
 family = "JetBrainsMono Nerd Font"
-style = "Regular"
+style = "Bold"
 
 [font.italic]
 family = "JetBrainsMono Nerd Font"
@@ -23,7 +23,16 @@ y = 0
 [window]
 decorations_theme_variant = "Dark"
 
+# Scroll speed comes from the alacritty-scroll rule in hyprland.lua.
+[scrolling]
+multiplier = 1
+
 [keyboard]
 bindings = [
   { key = "Key6", mods = "Control", chars = "\u001e" }
 ]
+
+# [[keyboard.bindings]]
+# key = "Return"
+# mods = "Shift"
+# chars = "\u001B\r"

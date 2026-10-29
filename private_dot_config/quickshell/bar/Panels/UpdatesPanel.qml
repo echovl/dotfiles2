@@ -57,6 +57,10 @@ Column {
         PackageRow {}
       }
 
+      Separator {
+        visible: Updates.repo.length > 0 && Updates.aur.length > 0
+      }
+
       SectionTitle {
         visible: Updates.aur.length > 0
         text: "AUR"
@@ -93,6 +97,7 @@ Column {
       id: version
       anchors.right: parent.right
       anchors.rightMargin: 6
+      anchors.baseline: name.baseline
       width: Math.min(implicitWidth, parent.width * 0.5)
       horizontalAlignment: Text.AlignRight
       textFormat: Text.PlainText

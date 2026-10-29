@@ -45,7 +45,9 @@ Item {
 
     Row {
       Repeater {
-        model: root.items
+        // Diffed, so an app joining or leaving the tray adds or removes its
+        // own icon instead of reloading them all.
+        model: ScriptModel { values: root.items }
 
         Item {
           id: entry

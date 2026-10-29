@@ -1,40 +1,32 @@
 import QtQuick
+import Quickshell
 import qs.Common
 import qs.Ui
 
-// dunst's recent notifications, with Do Not Disturb as the switch.
+// Every notification still open, and the ones acted on that have closed
+// since, newest first, with their actions; Do Not Disturb is the switch.
+// Click one to open it, right-click to dismiss it.
 Column {
   id: root
 
   width: parent ? parent.width : Theme.popupWidth
   spacing: 14
 
-  function ago(seconds) {
-    if (seconds < 60) return "now"
-    if (seconds < 3600) return Math.floor(seconds / 60) + "m"
-    if (seconds < 86400) return Math.floor(seconds / 3600) + "h"
-    return Math.floor(seconds / 86400) + "d"
-  }
+  readonly property int count: Notifications.open.length
+  // The row whose reply is being written.
+  property string replyKey: ""
 
-  Component.onCompleted: Notifications.refreshHistory()
-
-  Timer {
-    interval: 2000
-    running: true
-    repeat: true
-    onTriggered: Notifications.refreshHistory()
-  }
+  Component.onCompleted: Notifications.markSeen()
 
   Hero {
-    icon: Notifications.paused ? Icons.bellOff : Icons.bell
+    icon: Notifications.dnd ? Icons.bellOff : Icons.bell
     title: "Notifications"
-    subtitle: Notifications.paused
-      ? (Notifications.waiting > 0 ? Notifications.waiting + " waiting" : "Do not disturb")
-      : (Notifications.history.length > 0 ? Notifications.history.length + " recent" : "All caught up")
+    subtitle: Notifications.dnd ? "Do not disturb"
+      : (root.count > 0 ? root.count + (root.count === 1 ? " notification" : " notifications") : "All caught up")
 
     Switch {
-      checked: !Notifications.paused
-      onToggled: Notifications.setPaused(!Notifications.paused)
+      checked: !Notifications.dnd
+      onToggled: Notifications.setDnd(!Notifications.dnd)
     }
   }
 
@@ -43,7 +35,7 @@ Column {
   Item {
     width: parent.width
     height: recentTitle.height
-    visible: Notifications.history.length > 0
+    visible: root.count > 0
 
     SectionTitle {
       id: recentTitle
@@ -67,13 +59,13 @@ Column {
         anchors.margins: -4
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-        onClicked: Notifications.clear()
+        onClicked: Notifications.dismissAll(Notifications.open)
       }
     }
   }
 
   Text {
-    visible: Notifications.history.length === 0
+    visible: root.count === 0
     textFormat: Text.PlainText
     text: "No notifications"
     color: Theme.faint
@@ -83,8 +75,8 @@ Column {
 
   Flickable {
     width: parent.width
-    height: Math.min(contentHeight, 400)
-    visible: Notifications.history.length > 0
+    height: Math.min(contentHeight, 460)
+    visible: root.count > 0
     contentHeight: list.implicitHeight
     clip: true
     boundsBehavior: Flickable.StopAtBounds
@@ -93,10 +85,10 @@ Column {
     Column {
       id: list
       width: parent.width
-      spacing: 4
+      spacing: 6
 
       Repeater {
-        model: Notifications.history
+        model: ScriptModel { values: Notifications.open }
 
         RowSurface {
           id: row
@@ -104,78 +96,50 @@ Column {
           required property var modelData
 
           width: list.width
-          height: content.implicitHeight + 16
+          height: content.implicitHeight + strip.implicitHeight
+          clip: true
+          // A faint tile at rest, so a row's buttons read as part of it
+          // and not as the start of the next one.
+          color: hovered ? Theme.hoverFill : Theme.normalFill
 
-          Column {
-            id: content
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.leftMargin: 10
-            anchors.rightMargin: 10
-            anchors.verticalCenter: parent.verticalCenter
-            spacing: 3
-
-            Item {
-              width: parent.width
-              height: appName.implicitHeight
-
-              Text {
-                id: appName
-                width: parent.width - when.width - 8
-                textFormat: Text.PlainText
-                text: row.modelData.app
-                color: Theme.dim
-                font.family: Theme.fontFamily
-                font.pixelSize: Theme.caption
-                font.bold: true
-                font.letterSpacing: 1.2
-                elide: Text.ElideRight
+          MouseArea {
+            anchors.fill: parent
+            acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+            cursorShape: Qt.PointingHandCursor
+            onClicked: mouse => {
+              if (mouse.button === Qt.LeftButton) {
+                Notifications.activate(row.modelData)
+                BarState.close()
+              } else {
+                Notifications.dismiss(row.modelData)
               }
-
-              Text {
-                id: when
-                anchors.right: parent.right
-                visible: !row.hovered
-                textFormat: Text.PlainText
-                text: root.ago(row.modelData.age)
-                color: Theme.dim
-                font.family: Theme.fontFamily
-                font.pixelSize: Theme.caption
-              }
-            }
-
-            Text {
-              width: parent.width
-              visible: text !== ""
-              textFormat: Text.PlainText
-              text: row.modelData.summary
-              color: Theme.foreground
-              font.family: Theme.fontFamily
-              font.pixelSize: Theme.body
-              elide: Text.ElideRight
-            }
-
-            Text {
-              width: parent.width
-              visible: text !== "" && text !== row.modelData.summary
-              textFormat: Text.PlainText
-              text: row.modelData.body
-              color: Theme.dim
-              font.family: Theme.fontFamily
-              font.pixelSize: Theme.bodySmall
-              wrapMode: Text.Wrap
-              maximumLineCount: 2
-              elide: Text.ElideRight
             }
           }
 
-          ActionButton {
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.margins: 4
-            visible: row.hovered
-            glyph: Icons.forget
-            onClicked: Notifications.remove(row.modelData.id)
+          NotificationContent {
+            id: content
+            width: parent.width
+            entry: row.modelData
+            showApp: true
+            hovered: row.hovered
+            iconSize: 32
+            padding: 10
+            replying: root.replyKey === row.modelData.key
+            onReplySent: text => {
+              root.replyKey = ""
+              Notifications.reply(row.modelData, text)
+            }
+            onReplyCancelled: root.replyKey = ""
+          }
+
+          NotificationActions {
+            id: strip
+            y: content.height
+            width: parent.width
+            height: implicitHeight
+            entry: row.modelData
+            replying: root.replyKey === row.modelData.key
+            onReplyRequested: root.replyKey = row.modelData.key
           }
         }
       }

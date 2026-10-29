@@ -1,8 +1,17 @@
 return {
-	-- { "dracula/vim",              lazy = true },
+	-- Native ports echovl/theme.lua uses for tinty schemes whose palette they
+	-- match exactly; lazy, loaded by the first :colorscheme that needs them.
 	{ "rose-pine/neovim", name = "rose-pine", lazy = true },
-	-- { "ellisonleao/gruvbox.nvim", lazy = true },
 	{ "sainnhe/gruvbox-material", lazy = true },
+	{ "folke/tokyonight.nvim", lazy = true },
+	{ "ellisonleao/gruvbox.nvim", lazy = true },
+	{ "Mofiqul/dracula.nvim", lazy = true },
+	{ "rebelot/kanagawa.nvim", lazy = true },
+	{ "sainnhe/everforest", lazy = true },
+	{ "gbprod/nord.nvim", lazy = true },
+	{ "kepano/flexoki-neovim", name = "flexoki", lazy = true },
+	{ "eldritch-theme/eldritch.nvim", lazy = true },
+	{ "tiagovla/tokyodark.nvim", lazy = true },
 	{
 		"vague-theme/vague.nvim",
 		lazy = false,

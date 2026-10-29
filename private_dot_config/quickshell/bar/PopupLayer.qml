@@ -36,6 +36,7 @@ PanelWindow {
 
   readonly property int padding: current === "tray" ? 8 : Theme.popupPadding
   readonly property int inset: Theme.popupBorder + padding
+  // The media card keeps Omarchy's 320, which fits its 64px cover.
   readonly property int cardWidth: current === "tray" ? 232 : (current === "media" ? 320 : Theme.popupWidth)
 
   function sync() {
@@ -46,6 +47,14 @@ PanelWindow {
   }
 
   onShownChanged: sync()
+
+  // Unload the panel once the fade-out ends: panels only work while open, and
+  // their cleanup (the Wi-Fi scanner, a Bluetooth scan) runs on unload. The
+  // panel goes before its payload, so a tray menu never loses its item.
+  onVisibleChanged: if (!visible) {
+    current = ""
+    currentPayload = null
+  }
 
   Connections {
     target: BarState

@@ -46,9 +46,13 @@ Singleton {
 
   readonly property string bell: g(0xF009A)
   readonly property string bellOff: g(0xF009B)
+  readonly property string close: g(0xF0156)
   readonly property string chip: g(0xF035B)
   readonly property string pin: g(0xF041)
+  readonly property string myLocation: g(0xF01A4)
   readonly property string updates: g(0xF021)
+  // Omarchy's Stay Awake mug, the same glyph on and off.
+  readonly property string stayAwake: g(0xEF59)
 
   readonly property string play: g(0xF040A)
   readonly property string pause: g(0xF03E4)

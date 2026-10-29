@@ -4,9 +4,13 @@ default-scheme = "base16-catppuccin-mocha"
 hooks = [
   "$HOME/.config/tinted-theming/tinty/hooks/greetd-palette.sh",
   "$HOME/.config/quickshell/bar/scripts/tinty-hook.sh",
+  "$HOME/.config/quickshell/cachy-cast/scripts/tinty-hook.sh",
   "$HOME/.config/tinted-theming/tinty/hooks/hyprland-colors.sh",
   "$HOME/.config/tinted-theming/tinty/hooks/rofi-colors.sh",
   "$HOME/.config/tinted-theming/tinty/hooks/dunst-colors.sh",
+  "$HOME/.config/tinted-theming/tinty/hooks/herdr-colors.sh",
+  "$HOME/.config/tinted-theming/tinty/hooks/tern-colors.sh",
+  "$HOME/.config/tinted-theming/tinty/hooks/t3code-colors.sh",
   # Last, so current_scheme is final: nvim reloads on SIGUSR1 (echovl/theme.lua).
   "pkill -USR1 -x nvim || true",
 ]
@@ -33,3 +37,10 @@ mkdir -p "$HOME/.config/yazi/flavors/tinted-scheme.yazi"
 cp -f "$TINTY_THEME_FILE_PATH" "$HOME/.config/yazi/flavors/tinted-scheme.yazi/flavor.toml"
 '''
 
+
+[[items]]
+path = "https://github.com/tinted-theming/tinted-terminal"
+name = "tinted-terminal-ghostty"
+themes-dir = "themes/ghostty"
+hook = "mkdir -p ~/.config/ghostty/themes && cp -f %f ~/.config/ghostty/themes/tinty && (pkill -USR2 -x ghostty || true)"
+supported-systems = ["base16", "base24"]

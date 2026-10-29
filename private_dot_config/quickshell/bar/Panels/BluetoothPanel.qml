@@ -18,8 +18,6 @@ Column {
   readonly property var available: powered && adapter.discovering
     ? devices.filter(device => !device.connected && !known(device) && named(device)) : []
 
-  property bool startedDiscovery: false
-
   function known(device) {
     return device.paired || device.bonded || device.trusted
   }
@@ -34,21 +32,21 @@ Column {
     return name !== "" && name.replace(/[-:]/g, "") !== device.address.replace(/:/g, "")
   }
 
-  // Keep scanning while open, even if something else stops the scan.
+  // Keep scanning while open, even if something else stops the scan. Devices
+  // stops the scans started here once the popup closes.
   Timer {
     interval: 1000
     repeat: true
     triggeredOnStart: true
     running: root.powered && !root.adapter.discovering
     onTriggered: {
+      Devices.owesDiscoveryStop = true
       root.adapter.discovering = true
-      root.startedDiscovery = true
     }
   }
 
-  Component.onDestruction: {
-    if (startedDiscovery && adapter && adapter.discovering) adapter.discovering = false
-  }
+  Component.onCompleted: Devices.bluetoothPopups++
+  Component.onDestruction: Devices.bluetoothPopups--
 
   Hero {
     icon: Devices.bluetoothIcon
@@ -220,7 +218,7 @@ Column {
         text: row.device.connected ? Icons.bluetoothConnected : Icons.bluetooth
         color: row.statusColor
         font.family: Theme.fontFamily
-        font.pixelSize: Theme.heading
+        font.pixelSize: Theme.title
       }
 
       Column {

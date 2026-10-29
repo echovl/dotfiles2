@@ -29,29 +29,26 @@ hl.monitor({
 
 -- See https://wiki.hyprland.org/Configuring/Keywords/ for more
 
--- Some default env vars.
+-- Cursor size.
+hl.env("XCURSOR_SIZE", "24")
+hl.env("HYPRCURSOR_SIZE", "24")
 
-hl.env("XCURSOR_SIZE", 24)
-hl.env("GDK_BACKEND", "wayland,x11")
-hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
+-- Wayland backend.
+hl.env("GDK_BACKEND", "wayland,x11,*")
 hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
-
--- env = QT_QPA_PLATFORM,wayland;xcb
---env = QT_STYLE_OVERRIDE,kvantum
-
-hl.env("QT_QPA_PLATFORMTHEME", "qt5ct")
-hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", 1)
-hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", 1)
-hl.env("MOZ_ENABLE_WAYLAND", 1)
-
-hl.env("GDK_SCALE", "2")
+hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
+hl.env("QT_QPA_PLATFORM", "wayland;xcb")
+hl.env("QT_QPA_PLATFORMTHEME", "gtk3")
 hl.env("ELECTRON_OZONE_PLATFORM_HINT", "wayland")
 hl.env("OZONE_PLATFORM", "wayland")
+hl.env("MOZ_ENABLE_WAYLAND", 1)
 
--- env = GTK_THEME,Adwaita-dark
+-- No window decorations.
+hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", 1)
 
--- For all categories, see https://wiki.hyprland.org/Configuring/Variables/
+-- Scale gtk apps using xwayland.
+hl.env("GDK_SCALE", "2")
 
 hl.config({
 	input = {
@@ -95,10 +92,8 @@ hl.config({
 	decoration = {
 		-- See https://wiki.hyprland.org/Configuring/Variables/ for more
 		rounding = 2,
-		active_opacity = 0.98,
-		inactive_opacity = 0.90,
 		shadow = {
-			enabled = true,
+			enabled = false,
 			range = 2,
 			render_power = 4,
 		},
@@ -118,8 +113,27 @@ hl.config({
 	},
 })
 
-hl.animation({ leaf = "workspaces", bezier = "default", enabled = true, speed = 3 })
-hl.animation({ leaf = "windows", bezier = "default", enabled = true, speed = 2 })
+hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
+hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0.05 }, { 0.36, 1 } } })
+hl.curve("linear", { type = "bezier", points = { { 0, 0 }, { 1, 1 } } })
+hl.curve("almostLinear", { type = "bezier", points = { { 0.5, 0.5 }, { 0.75, 1.0 } } })
+hl.curve("quick", { type = "bezier", points = { { 0.15, 0 }, { 0.1, 1 } } })
+
+hl.animation({ leaf = "global", enabled = true, speed = 10, bezier = "default" })
+hl.animation({ leaf = "border", enabled = true, speed = 5.39, bezier = "easeOutQuint" })
+hl.animation({ leaf = "windows", enabled = true, speed = 3.79, bezier = "easeOutQuint" })
+hl.animation({ leaf = "windowsIn", enabled = true, speed = 4.1, bezier = "easeOutQuint", style = "popin 87%" })
+hl.animation({ leaf = "windowsOut", enabled = true, speed = 1.49, bezier = "linear", style = "popin 87%" })
+hl.animation({ leaf = "fadeIn", enabled = true, speed = 1.73, bezier = "almostLinear" })
+hl.animation({ leaf = "fadeOut", enabled = true, speed = 1.46, bezier = "almostLinear" })
+hl.animation({ leaf = "fade", enabled = true, speed = 3.03, bezier = "quick" })
+hl.animation({ leaf = "fadeSwitch", enabled = false })
+hl.animation({ leaf = "layers", enabled = true, speed = 3.81, bezier = "easeOutQuint" })
+hl.animation({ leaf = "layersIn", enabled = true, speed = 4, bezier = "easeOutQuint", style = "fade" })
+hl.animation({ leaf = "layersOut", enabled = true, speed = 1.5, bezier = "linear", style = "fade" })
+hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 1.79, bezier = "almostLinear" })
+hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 1.39, bezier = "almostLinear" })
+hl.animation({ leaf = "workspaces", enabled = false })
 
 hl.config({
 	dwindle = {
@@ -131,61 +145,19 @@ hl.config({
 })
 
 hl.config({
-	master = {
-		-- See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-	},
-})
-
-hl.config({
-	gestures = {
-		-- See https://wiki.hyprland.org/Configuring/Variables/ for more
-		-- workspace_swipe = false
-	},
-})
-
-hl.config({
 	misc = {
 		disable_hyprland_logo = true,
 		disable_splash_rendering = true,
+		-- vrr = true,
 		-- vfr = true
 	},
 })
 
-hl.config({
-	debug = {
-		disable_logs = false,
-	},
-})
-
-hl.config({
-	render = {
-		-- explicit_sync = 0
-		-- explicit_sync_kms = 0
-	},
-})
-
 -- windowrule = opacity 0.98 override 0.85 override,^(foot|Alacritty)$
-
 -- windowrule = opacity 0.98 override 0.85 override,^(rofi)$
 
 hl.window_rule({
-	name = "helium-opacity",
-	match = {
-		class = "helium",
-	},
-	opacity = "1.0 override 1.0 override",
-})
-
-hl.window_rule({
-	name = "zoom-opacity",
-	match = {
-		class = "zoom",
-	},
-	opacity = "1.0 override 1.0 override",
-})
-
-hl.window_rule({
-	name = "match_title_org_puls",
+	name = "pavucontrol-float",
 	match = {
 		class = "org.pulseaudio.pavucontrol",
 	},
@@ -194,7 +166,7 @@ hl.window_rule({
 })
 
 hl.window_rule({
-	name = "match_class_xdg-desk",
+	name = "xdg-file-opener-float",
 	match = {
 		title = "All Files",
 		class = "xdg-desktop-portal-gtk",
@@ -214,35 +186,51 @@ hl.window_rule({
 })
 
 hl.window_rule({
-	name = "match_class_chrome-a",
+	name = "rabby-popup-float",
 	match = {
 		class = "chrome-acmacodkjbdgmoleebolmdjonilkdbch-Default",
 	},
 	float = true,
 })
 
+-- Alacritty ignores its scrolling.multiplier while an app has mouse reporting
+-- on (discordo, nvim, ...), so scale its input here instead. 3.0 matches
+-- Ghostty: global touchpad factor 0.3 x Ghostty's built-in x10, and Ghostty's
+-- default 3 rows per wheel notch. Pairs with scrolling.multiplier = 1 in
+-- alacritty.toml so shell scrollback lands on the same speed.
+hl.window_rule({
+	name = "alacritty-scroll-opacity",
+	match = {
+		class = "Alacritty",
+	},
+	scroll_touchpad = 1.5,
+	-- scroll_mouse = 3.0,
+	opacity = "0.98 override 0.94 override",
+})
+
 -- See https://wiki.hyprland.org/Configuring/Keywords/ for more
 
 local mainMod = "SUPER"
 
--- Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-
 -- terminal
 hl.bind(mainMod .. " + " .. "RETURN", hl.dsp.exec_cmd("alacritty"))
 
--- app launcher
-hl.bind(mainMod .. " + " .. "d", hl.dsp.exec_cmd("rofi -show drun -theme ~/.config/rofi/config.rasi"))
+-- app launcher: cachy-cast (global shortcut handled inside `qs -c cachy-cast`)
+hl.bind(mainMod .. " + " .. "d", hl.dsp.global("cachy-cast:toggle"))
 
 -- screenshot
 hl.bind(mainMod .. " + " .. "P", hl.dsp.exec_cmd("hyprshot -m region -s --clipboard-only"))
 
 -- media keys
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("pactl set-sink-volume @DEFAULT_SINK@ +5%"))
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("pactl set-sink-volume @DEFAULT_SINK@ -5%"))
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("pactl set-sink-mute @DEFAULT_SINK@ toggle"))
-hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("pactl set-source-mute @DEFAULT_SOURCE@ toggle"))
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("light -A 5"))
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("light -U 5"))
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("pactl set-sink-volume @DEFAULT_SINK@ +5%"), { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("pactl set-sink-volume @DEFAULT_SINK@ -5%"), { locked = true, repeating = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("pactl set-sink-mute @DEFAULT_SINK@ toggle"), { locked = true })
+hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("pactl set-source-mute @DEFAULT_SOURCE@ toggle"), { locked = true })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("light -A 5"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("light -U 5"), { locked = true, repeating = true })
+
+-- lock screen
+hl.bind(mainMod .. " + " .. "CTRL" .. " + " .. "l", hl.dsp.exec_cmd("loginctl lock-session"))
 
 -- close window
 hl.bind(mainMod .. " + " .. "Q", hl.dsp.window.close())
@@ -298,18 +286,19 @@ hl.bind(mainMod .. " + " .. "mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + " .. "mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Quickshell bar (~/.config/quickshell/bar): Hyprland blurs behind its glassy
--- background, and leaves animating its windows to the bar, which fades them.
+-- background, and leaves animating its windows (the notification cards too)
+-- to the bar, which animates them itself.
 hl.layer_rule({ match = { namespace = "^qs-bar$" }, blur = true, ignore_alpha = 0.3 })
-hl.layer_rule({ match = { namespace = "^(qs-bar|qs-popup|qs-osd)$" }, no_anim = true, animation = "none" })
+hl.layer_rule({ match = { namespace = "^(qs-bar|qs-popup|qs-osd|qs-notifications)$" }, no_anim = true, animation = "none" })
 
 -- Autostart
 hl.on("hyprland.start", function()
-	-- hl.exec_cmd("noctalia")
-	-- hl.exec_cmd("waybar &")
+	-- Also the notification daemon (in place of dunst).
 	hl.exec_cmd("qs -c bar")
-	hl.exec_cmd("dunst &")
+	hl.exec_cmd("qs -c cachy-cast")
 	hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &")
 	hl.exec_cmd("swaybg -i ~/Pictures/wallhaven-6lykzx.png")
+	hl.exec_cmd("hypridle")
 end)
 
 -- Exec (run every reload)

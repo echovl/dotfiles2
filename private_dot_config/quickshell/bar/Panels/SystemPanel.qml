@@ -87,6 +87,8 @@ Column {
     }
   }
 
+  Separator {}
+
   Usage {
     title: "CPU"
     value: root.cpu >= 0 ? Math.round(root.cpu) + "%" : ""

@@ -64,6 +64,7 @@ Column {
 
     Column {
       width: parent.width - 74
+      anchors.verticalCenter: parent.verticalCenter
       spacing: 4
 
       Text {
@@ -141,11 +142,14 @@ Column {
     }
   }
 
+  // The play button is taller than the skips; a Row lines children up by
+  // their tops, so each is centered on the row instead.
   Row {
     anchors.horizontalCenter: parent.horizontalCenter
     spacing: 6
 
     PillButton {
+      anchors.verticalCenter: parent.verticalCenter
       bordered: false
       verticalPadding: 6
       glyph: Icons.skipPrevious
@@ -155,6 +159,7 @@ Column {
     }
 
     PillButton {
+      anchors.verticalCenter: parent.verticalCenter
       bordered: false
       horizontalPadding: 14
       verticalPadding: 6
@@ -166,6 +171,7 @@ Column {
     }
 
     PillButton {
+      anchors.verticalCenter: parent.verticalCenter
       bordered: false
       verticalPadding: 6
       glyph: Icons.skipNext
@@ -193,31 +199,31 @@ Column {
         required property var modelData
 
         width: parent.width
-        height: sourceRow.implicitHeight + 10
+        height: sourceRow.implicitHeight + 12
         current: modelData === root.player
 
         Row {
           id: sourceRow
           anchors.left: parent.left
           anchors.right: parent.right
-          anchors.leftMargin: 8
-          anchors.rightMargin: 8
+          anchors.leftMargin: 10
+          anchors.rightMargin: 10
           anchors.verticalCenter: parent.verticalCenter
-          spacing: 8
+          spacing: 10
 
           Text {
-            width: 18
+            width: 22
             anchors.verticalCenter: parent.verticalCenter
             horizontalAlignment: Text.AlignHCenter
             textFormat: Text.PlainText
             text: source.modelData.isPlaying ? Icons.pause : Icons.play
             color: Theme.foreground
             font.family: Theme.fontFamily
-            font.pixelSize: Theme.body
+            font.pixelSize: Theme.title
           }
 
           Column {
-            width: parent.width - 26
+            width: parent.width - 32
             anchors.verticalCenter: parent.verticalCenter
             spacing: 1
 
@@ -227,7 +233,7 @@ Column {
               text: source.modelData.trackTitle || source.modelData.identity
               color: Theme.foreground
               font.family: Theme.fontFamily
-              font.pixelSize: Theme.bodySmall
+              font.pixelSize: Theme.body
               font.bold: source.current
               elide: Text.ElideRight
             }

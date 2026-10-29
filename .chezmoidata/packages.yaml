@@ -100,6 +100,7 @@ packages:
     - ledger-live-bin
     - ledger-udev
     - nordvpn-bin
+    - t3code-bin
   # Enabled and started if they aren't already. tuned-ppd starts tuned itself;
   # nordvpnd stays off, started by hand.
   services:

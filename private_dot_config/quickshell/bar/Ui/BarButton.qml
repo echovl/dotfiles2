@@ -10,6 +10,9 @@ Item {
   property string label: ""
   property color color: Theme.foreground
   property bool open: false
+  // An off toggle (caffeine, Bluetooth, sound, Do Not Disturb): the icon and
+  // label fade, the open mark and anything added on top don't.
+  property bool dimmed: false
   // Omarchy's status widgets, like the weather, sit in a narrower slot.
   property real slot: Theme.iconSlot
 
@@ -23,6 +26,7 @@ Item {
     id: content
     anchors.centerIn: parent
     spacing: 4
+    opacity: root.dimmed ? 0.45 : 1
 
     Text {
       id: labelText
@@ -34,7 +38,7 @@ Item {
       text: root.label
       color: root.color
       font.family: Theme.fontFamily
-      font.pixelSize: Theme.iconFont
+      font.pixelSize: Theme.body
       renderType: Text.NativeRendering
     }
 
